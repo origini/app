@@ -66,3 +66,100 @@ content
 created
 updated
 deleted
+
+
+
+Service
+  UserType/App
+    Visitor
+    Marketer
+    Accountant
+    Admin
+  Session
+  
+  Tracker
+  
+  
+
+Visitor
+  + LogIn
+    + login
+    + Dont Have Account ? SignUp
+  + SignUp
+    + form create
+    + Have Account ? LogIn
+  + Newsletter
+    + form create
+  + Offer
+    + Order
+    
+VisitorOrder
+CustomerOrder
+AdminForUserOrder
+
+Customer
+  + LogOut
+  + Account
+  + Data
+  + Newsletter
+    + Create  
+    + delete
+  + Logs
+  
+Marketer
+    
+  + product
+    + specification
+    + price    
+    + create
+    + delete
+    
+  + offer
+    + template
+    + product
+    + create
+    + delete
+    
+    
+  + channel    
+    + social/VisitorPage
+    + newsletter
+      + customer Account
+      + Visitor
+
+
+  + campaign
+    + channel
+    + offer
+    + time_in
+    + time_out
+    + user filter
+    + create
+    + stop
+    + start
+    + delete
+  
+  + Tracking
+    + campaing
+    + users
+    
+  + Report
+    + how often
+    + filter
+    + email
+  
+Accounting
+  + Report
+  + Order
+    + product
+    + Customer
+      + Contact
+  
+
+Service
+  
+Admin
+  + users
+    + roles    
+  + logs
+  
