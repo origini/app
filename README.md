@@ -68,17 +68,59 @@ updated
 deleted
 
 
+Aplikacja pracująca w tle nazywa się Routing,
+służy do monitorowania co dzieje się w każdej warstwie
 
-Service
-  UserType/App
+Aplikacja Visitor służy niezalogowanym użytkownikom
+Każda aplikacja ma swój widok, logikę i bazę danych do której może mieć dostęp inna aplikacja
+Np Visitor ma dostęp do listy aktywnych produktów do pokazania we ofercie, pobierane od Markietera
+Każda aplikacja ma różne warstwy dostępu, wedle aplikacji, dla każdej ma inne API
+np:
+
+  Marketer  
+  Auth
+    Admin
+    User
+    App::Router
+      User jest zalogowany?
+      
+  Public             
+    + frontend
+      Tool:LogIn
+        logowanie do Marketingu
+      
+    + obecnie aktywne oferty z kampanii
+      Router::UserRole = Visitor
+    + informacje o koncie
+      Router::UserRole =  Admin
+    + lista aktywnych przypisanych do mnie ofert promocyjnych
+        Router::UserRole = Customer
+
+
+
+
+Router - sprawdza ruch i uprawnienia, dostep
+  Matrix for access: App / UserRole
+  Matrix for access: Tool / UserRole
+  
+  UserRole
     Visitor
     Marketer
     Accountant
-    Admin
-  Session
-  
-  Tracker
-  
+    Admin   
+    
+  App  
+    Visitor
+    Marketer
+    Accountant
+    Admin    
+    
+  App
+    Tool
+      Session
+      Tracker
+      
+      
   
 
 Visitor
@@ -151,15 +193,56 @@ Marketer
 Accounting
   + Report
   + Order
-    + product
+    + Marketer::Product
     + Customer
       + Contact
   
 
-Service
-  
+ 
 Admin
   + users
     + roles    
   + logs
+  
+
+
+Tools - uzywane przez APP, zawiera API + SDK
+  
+  settings
+  access
+    role
+    action
+
+
+  Account
+    Data
+    
+  Log
+    API
+    View
+    Action
+      Login
+      Logout
+  
+  Sign
+    SignUp
+    SingOff
+  
+  
+  Queue 
+    jobs    
+      type
+    plan      
+      status
+    
+    
+  Messages
+    add
+    list
+  
+  Account
+    Log
+    Tracker
+  
+  
   
