@@ -34,6 +34,7 @@ Przykładowy projekt:
         + plugin
         + php
           + index.php
+            + ładuj config 
           + ajax.php
             + controller + model
           + rest.php
@@ -46,6 +47,13 @@ Przykładowy projekt:
             actions + model
           + Model.php
             attributes
+            
+          + Config/
+            action()
+            model
+          + Lang/
+            action()
+            model
 
     \Admin
       \Newsletter
