@@ -4,40 +4,14 @@
     <meta charset="UTF-8">
     <title>Newsletter</title>
 
+    <script src="../js/formToObject.min.js"></script>
     <script src="../js/rest.js"></script>
 </head>
 <body>
 
 
-<script src="../js/formToObject.min.js"></script>
-<script>
-    // formToObject('myFormId');
-    // formToObject(document.getElementById('myFormId'));
-
-    // var result = formToObject('specialElementsForm');
-    // var result = formToObject('visitor-newsletter-delete');
-    // var result = formToObject('testForm');
-    // console.log(result);
-
-
-    function trim(str) {
-        return str.replace(/^\s+|\s+$/g, '');
-    }
-
-    function getElement(id) {
-        if (document.getElementById) {
-            return document.getElementById(id);
-        } else if (document.all) {
-            return window.document.all[id];
-        } else if (document.layers) {
-            return window.document.layers[id];
-        }
-    }
-</script>
-
-
 <!-- DELETE method -->
-<form action='' method='POST' id="visitor-newsletter-delete">
+<form>
     <input type="hidden" name="method" value="DELETE">
 
     <input type="hidden" name="id" value="1">
@@ -46,7 +20,7 @@
 
 
 <!-- PUT method -->
-<form action='' method='POST' id="visitor-newsletter-put">
+<form>
     <input type="hidden" name="method" value="PUT">
 
     <!--    <input type="text" name="_method" value="PUT">-->
@@ -61,7 +35,7 @@
 
 
 <!-- READ method -->
-<form action='' method='POST' id="visitor-newsletter-get">
+<form>
     <input type="hidden" name="method" value="GET">
 
     <input type="text" name="id" value="1">
@@ -70,7 +44,7 @@
 
 
 <!-- POST method -->
-<form action='' method='POST' id="visitor-newsletter-post">
+<form>
     <input type="hidden" name="method" value="POST">
 
     <!--    <input type="text" name="firstname" value="To">-->
@@ -108,11 +82,6 @@
     // document.getElementsByTagName('form[action=""]').value = '../php/index.php';
     var url = '../php/index.php';
 
-    // document.getElementById("visitor-newsletter-delete").action = url;
-    // document.getElementById("visitor-newsletter-put").action = url;
-    // document.getElementById("visitor-newsletter-get").action = url;
-    // document.getElementById("visitor-newsletter-create").action = url;
-
     var Newsletter = new Rest(url, '?', function (data) {
         console.error(data);
     }, function (data) {
@@ -137,57 +106,11 @@
             console.log(method);
 
             Newsletter.byMethod(method, data);
-            //
-            // if (method === 'GET') {
-            //     var id = data.id;
-            //     Newsletter.get(id);
-            // }
-            //
-            // if (method === 'POST') {
-            //     Newsletter.post(data);
-            // }
-            //
-            // if (method === 'PUT') {
-            //     var id = data.id;
-            //     Newsletter.put(id, data);
-            // }
-            //
-            // if (method === 'DELETE') {
-            //     var id = data.id;
-            //     Newsletter.delete(id);
-            // }
-
             console.log(data);
 
             event.preventDefault();
         });
     }
-
-    //
-    // document.getElementsByTagName('form').addEventListener("submit", function (event) {
-    //     console.log(this);
-    //     event.preventDefault();
-    // });
-    //
-    // document.getElementById('visitor-newsletter-get').addEventListener("click", function(event){
-    //     event.preventDefault();
-    //     NewsletterGet();
-    // });
-    //
-    // document.getElementById('visitor-newsletter-post').addEventListener("click", function(event){
-    //     event.preventDefault();
-    //     NewsletterPost();
-    // });
-    //
-    // document.getElementById('visitor-newsletter-put').addEventListener("click", function(event){
-    //     event.preventDefault();
-    //     NewsletterPut();
-    // });
-    //
-    // document.getElementById('visitor-newsletter-delete').addEventListener("click", function(event){
-    //     event.preventDefault();
-    //     NewsletterDelete();
-    // });
 </script>
 
 

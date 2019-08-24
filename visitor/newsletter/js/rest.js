@@ -4,6 +4,20 @@
 // Get all users
 
 
+function trim(str) {
+    return str.replace(/^\s+|\s+$/g, '');
+}
+
+function getElement(id) {
+    if (document.getElementById) {
+        return document.getElementById(id);
+    } else if (document.all) {
+        return window.document.all[id];
+    } else if (document.layers) {
+        return window.document.layers[id];
+    }
+}
+
 function isJson(str) {
     try {
         JSON.parse(str);
