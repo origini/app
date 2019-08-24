@@ -102,3 +102,19 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+.idea/
+admin/
+api/
+dev/
+visitor/newsletter/css/
+visitor/newsletter/plugin/
+visitor/newsletter/slim/composer.json
+visitor/newsletter/slim/composer.lock
+Would skip repository visitor/newsletter/slim/vendor/container-interop/container-interop
+Would skip repository visitor/newsletter/slim/vendor/nikic/fast-route
+Would skip repository visitor/newsletter/slim/vendor/pimple/pimple
+Would skip repository visitor/newsletter/slim/vendor/psr/container
+Would skip repository visitor/newsletter/slim/vendor/psr/http-message
+Would skip repository visitor/newsletter/slim/vendor/slim/slim
+visitor/newsletter/slim/vendor/autoload.php
+visitor/newsletter/slim/vendor/composer

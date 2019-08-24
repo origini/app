@@ -13,21 +13,25 @@ function isJson(str) {
     return true;
 }
 
-var Response = function (xhr) {
+var Response = function (xhr, error, success) {
     if (!isJson(xhr.responseText)) {
         console.error('Response give not JSON Data');
+        // alert('Response give not JSON Data');
         console.log(xhr.responseText);
         return false;
     }
     var data = JSON.parse(xhr.responseText);
     if (xhr.readyState == 4 && xhr.status == "200") {
-        console.table(data);
+        // console.table(data);
+        success(data, xhr);
     } else {
-        console.error(data);
+        // console.error(data);
+        error(data, xhr);
     }
 }
 
-function Rest(url, selector) {
+
+function Rest(url, selector, error, success) {
 
     this.url = url;
     this.selector = '/';
@@ -35,14 +39,38 @@ function Rest(url, selector) {
         // this.selector = selector + 'id=';
         this.selector = selector;
     }
+    // this.error = {};
+    // this.success = {};
+    this.error = error;
+    this.success = success;
 
+    this.byMethod = function (method, data) {
+
+
+        if (method === 'GET') {
+            var id = data.id;
+            this.get(id);
+        }
+        if (method === 'POST') {
+            this.post(data);
+        }
+        if (method === 'PUT') {
+            var id = data.id;
+            this.put(id, data);
+        }
+        if (method === 'DELETE') {
+            var id = data.id;
+            this.delete(id);
+        }
+
+    }
 
     this.all = function () {
         var xhr = new XMLHttpRequest();
 
         xhr.open('GET', this.url, true);
         xhr.onload = function () {
-            Response(xhr);
+            Response(xhr, error, success);
         }
         xhr.send(null);
     }
@@ -52,7 +80,7 @@ function Rest(url, selector) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', this.url + this.selector + id, true);
         xhr.onload = function () {
-            Response(xhr);
+            Response(xhr, error, success);
         }
         xhr.send(null);
     }
@@ -65,7 +93,7 @@ function Rest(url, selector) {
         xhr.open("POST", this.url, true);
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.onload = function () {
-            Response(xhr);
+            Response(xhr, error, success);
         }
         xhr.send(json);
     }
@@ -78,7 +106,7 @@ function Rest(url, selector) {
         xhr.open("PUT", this.url + this.selector + id, true);
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.onload = function () {
-            Response(xhr);
+            Response(xhr, error, success);
         }
         xhr.send(json);
     }
@@ -88,7 +116,7 @@ function Rest(url, selector) {
 
         xhr.open("DELETE", this.url + this.selector + id, true);
         xhr.onload = function () {
-            Response(xhr);
+            Response(xhr, error, success);
         }
         xhr.send(null);
     }
