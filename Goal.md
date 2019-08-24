@@ -23,36 +23,38 @@ techniczny background a nie architektura
 Każdy element systemu jest przeznaczony dla określonego usera, dlatego lepiej każdy element zdefiniować, kto będzie go uzywał
 
 Przykładowy projekt: 
-\Visitor
-  \Newsletter
-    + css
-    + img
-    + js
-    + page 
-    + plugin
-    + php
-      + index.php
-      + ajax.php
-        + controller + model
-      + rest.php
-        http params + controller + model
-          Get
-          Put
-          Post
-          Delete
-      + Controller.php
-        actions + model
-      + Model.php
-        attributes
-      
-\Admin
-  \Newsletter
-    + css
-    + img
-    + js
-    + page 
-    + plugin
-    + php
-      + index.php
-      + Controller.php
-      + Model.php      
+
+
+    \Visitor
+      \Newsletter
+        + css
+        + img
+        + js
+        + page 
+        + plugin
+        + php
+          + index.php
+          + ajax.php
+            + controller + model
+          + rest.php
+            http params + controller + model
+              Get
+              Put
+              Post
+              Delete
+          + Controller.php
+            actions + model
+          + Model.php
+            attributes
+
+    \Admin
+      \Newsletter
+        + css
+        + img
+        + js
+        + page 
+        + plugin
+        + php
+          + index.php
+          + Controller.php
+          + Model.php      
