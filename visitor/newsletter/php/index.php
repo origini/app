@@ -1,7 +1,13 @@
 <?php
+/*
+ * Handle All Requests from Frontend
+ * defualt Ajax / REST requests
+ */
 //http://localhost/origini-app/visitor/newsletter/php/index.php
 //http://localhost/origini-app/visitor/newsletter/page/index.html
 
+include_once 'helpers.php';
+include_once 'Config.php';
 include_once 'Message.php';
 include_once 'Rest.php';
 
@@ -13,15 +19,6 @@ include_once 'Rest.php';
 
 //$id = explode('/', substr(@$_SERVER['PATH_INFO'], 1));
 
-function getFromArray($id)
-{
-    if (is_array($id) && !empty($id)) {
-        if (empty(current($id))) {
-            $id = key($id);
-        }
-    }
-    return $id;
-}
 
 $id = getFromArray($_GET);
 
