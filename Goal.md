@@ -32,15 +32,16 @@ Przykładowy projekt:
     + plugin
     + php
       + index.php
-      
+      + ajax.php
+        + controller + model
       + rest.php
-        http params
+        http params + controller + model
           Get
           Put
           Post
           Delete
       + Controller.php
-        actions
+        actions + model
       + Model.php
         attributes
       
