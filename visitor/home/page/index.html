@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+
+    <script src="/origini-app/visitor/home/js/include-html.js"></script>
+    <script src="/origini-app/visitor/home/js/include-url.js"></script>
+    <script src="/origini-app/visitor/home/js/include-module-plugin-in-id.js"></script>
+    <script src="/origini-app/visitor/home/js/message.js"></script>
+
+    <script src="/origini-app/visitor/home/js/formToObject.min.js"></script>
+    <script src="/origini-app/visitor/home/js/rest.js"></script>
+    <script src="/origini-app/visitor/home/js/rest-module.js"></script>
+    <script src="/origini-app/visitor/home/js/rest-submit.js"></script>
+
+    <script>
+        var include = {
+            'newsletter': ['create', 'delete'],
+            'registration': ['create', 'delete'],
+            'auth': ['create', 'delete'],
+            'home': []
+        };
+    </script>
+
+    <script language="JavaScript">
+        function addScriptToHead(src) {
+            var head = document.getElementsByTagName('head')[0];
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = src;
+            head.appendChild(script);
+        }
+
+
+        function addScriptToHeadDelayed(src) {
+            var delay = 100;
+            document.addEventListener("DOMContentLoaded", function () {
+                setTimeout(function () {
+                        addScriptToHead(src)
+                    },
+                    delay)
+            });
+        }
+    </script>
+
+</head>
+<body>
+
+
+<div class="home-plugins">
+    <div id="plugin-home-create">..loading</div>
+    <div id="plugin-registration-create">..loading</div>
+    <div id="plugin-registration-delete">..loading</div>
+    <div id="plugin-newsletter-create">..loading</div>
+    <div id="plugin-newsletter-delete">..loading</div>
+    <div id="plugin-auth-create">..loading</div>
+    <div id="plugin-auth-delete">..loading</div>
+</div>
+
+
+<script>
+
+    includeModulePluginInId("home", "messages", "plugin-home-create");
+
+    includeModulePluginInId("newsletter", "create", "plugin-newsletter-create");
+    includeModulePluginInId("newsletter", "delete", "plugin-newsletter-delete");
+
+    includeModulePluginInId("registration", "create", "plugin-registration-create");
+    includeModulePluginInId("registration", "delete", "plugin-registration-delete");
+
+    includeModulePluginInId("auth", "create", "plugin-auth-create");
+    includeModulePluginInId("auth", "delete", "plugin-auth-delete");
+
+</script>
+
+
+<script>
+
+    addScriptToHeadDelayed("/origini-app/visitor/newsletter/js/foot.js");
+    addScriptToHeadDelayed("/origini-app/visitor/auth/js/foot.js");
+    addScriptToHeadDelayed("/origini-app/visitor/registration/js/foot.js");
+
+</script>
+
+
+</body>
+</html>

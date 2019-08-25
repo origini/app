@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+
+    <script src="/origini-app/visitor/home/js/include-html.js"></script>
+    <script src="/origini-app/visitor/home/js/include-url.js"></script>
+    <script src="/origini-app/visitor/home/js/include-module.js"></script>
+    <script src="/origini-app/visitor/home/js/message.js"></script>
+
+    <script src="/origini-app/visitor/home/js/formToObject.min.js"></script>
+    <script src="/origini-app/visitor/home/js/rest.js"></script>
+    <script src="/origini-app/visitor/home/js/rest-module.js"></script>
+    <script src="/origini-app/visitor/home/js/rest-submit.js"></script>
+
+    <script>
+        var include = {
+            'newsletter': ['create', 'delete'],
+            'registration': ['create', 'delete'],
+            'auth': ['create', 'delete'],
+            'home': []
+        };
+    </script>
+
+</head>
+<body>
+
+
+<div class="home-plugins">
+    <div id="home-create"></div>
+    <div id="registration-create"></div>
+    <div id="newsletter-create"></div>
+    <div id="auth-create"></div>
+</div>
+
+
+<script>
+
+    includeUrl("/origini-app/visitor/home/plugin/messages.html", "home-create",function () {
+        console.log('success', "included plugin");
+        restModule('home',  '', '', '', function (data) {
+            console.error(data);
+            AddMessage(data.message.error);
+        }, function (data) {
+            console.table(data);
+            AddMessage(data.message.info);
+        });
+    });
+
+    includeUrl("/origini-app/visitor/newsletter/plugin/create.html", "newsletter-create",function () {
+        console.log('success', "included plugin");
+        restModule('newsletter',  '', '', '', function (data) {
+            console.error(data);
+            AddMessage(data.message.error);
+        }, function (data) {
+            console.table(data);
+            AddMessage(data.message.info);
+        });
+    });
+
+    includeUrl("/origini-app/visitor/registration/plugin/create.html", "registration-create", function () {
+        console.log('success', "included plugin");
+        restModule('registration',  '', '', '', function (data) {
+            console.error(data);
+            AddMessage(data.message.error);
+        }, function (data) {
+            console.table(data);
+            AddMessage(data.message.info);
+        });
+    });
+
+    includeUrl("/origini-app/visitor/auth/plugin/create.html", "auth-create", function () {
+        console.log('success', "included plugin");
+        restModule('auth',  '', '', '', function (data) {
+            console.error(data);
+            AddMessage(data.message.error);
+        }, function (data) {
+            console.table(data);
+            AddMessage(data.message.info);
+        });
+    });
+</script>
+
+
+</body>
+</html>

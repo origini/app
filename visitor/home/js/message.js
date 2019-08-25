@@ -9,11 +9,15 @@
 //
 // };
 
-function AddMessage(message) {
+function AddMessage(message, classname) {
     console.log(message);
+
+    if (typeof classname !== 'string') {
+        classname = 'home-messages';
+    }
 
     var node = document.createElement("LI");                 // Create a <li> node
     var textnode = document.createTextNode(message);         // Create a text node
     node.appendChild(textnode);
-    document.getElementsByClassName('home-messages')[0].appendChild(node);
+    document.getElementsByClassName(classname)[0].appendChild(node);
 }

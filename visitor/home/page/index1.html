@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+
+    <script src="/origini-app/visitor/home/js/include-html.js"></script>
+    <script src="/origini-app/visitor/home/js/message.js"></script>
+
+    <script src="/origini-app/visitor/home/js/formToObject.min.js"></script>
+    <script src="/origini-app/visitor/home/js/rest.js"></script>
+    <script src="/origini-app/visitor/home/js/rest-module.js"></script>
+    <script src="/origini-app/visitor/home/js/rest-submit.js"></script>
+
+    <script>
+        var include = {
+            'newsletter': ['create', 'delete'],
+            'registration': ['create', 'delete'],
+            'auth': ['create', 'delete'],
+            'home': []
+        };
+    </script>
+
+    <script src="/origini-app/visitor/newsletter/js/foot.js"></script>
+    <script src="/origini-app/visitor/auth/js/foot.js"></script>
+    <script src="/origini-app/visitor/registration/js/foot.js"></script>
+    
+</head>
+<body>
+
+<div class="include-plugin" w3-include-html="/origini-app/visitor/home/plugin/messages.html"></div>
+
+
+<div class="home-plugins">
+    <div class="include-plugin" w3-include-html="/origini-app/visitor/newsletter/plugin/create.html"></div>
+    <div class="include-plugin" w3-include-html="/origini-app/visitor/newsletter/plugin/delete.html"></div>
+<!--    <div class="include-foot" w3-include-html="/origini-app/visitor/newsletter/plugin/foot.html"></div>-->
+
+    <div class="include-plugin" w3-include-html="/origini-app/visitor/auth/plugin/create.html"></div>
+    <div class="include-plugin" w3-include-html="/origini-app/visitor/auth/plugin/delete.html"></div>
+<!--    <div class="include-foot" w3-include-html="/origini-app/visitor/auth/plugin/foot.html"></div>-->
+
+    <div class="include-plugin" w3-include-html="/origini-app/visitor/registration/plugin/create.html"></div>
+    <div class="include-plugin" w3-include-html="/origini-app/visitor/registration/plugin/delete.html"></div>
+<!--    <div class="include-foot" w3-include-html="/origini-app/visitor/registration/plugin/foot.html"></div>-->
+
+</div>
+
+
+<script>
+    includeHTML("include-plugin", function () {
+        console.log('success', "included plugin");
+    });
+</script>
+
+
+<div class="home-foots">
+
+    <!--    <div w3-include-html="/origini-app/visitor/auth/plugin/delete.html"></div>-->
+
+
+</div>
+
+
+<script>
+    // var delay = 100;
+    // document.addEventListener("DOMContentLoaded", function () {
+    //     setTimeout(function () {
+    //             includeHTML("include-foot", function () {
+    //                 console.log('success', "included foot");
+    //             })
+    //         },
+    //         delay
+    //     );
+    // });
+</script>
+
+
+</body>
+</html>
