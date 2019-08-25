@@ -5,9 +5,8 @@
     <title>Home</title>
 
 
-    <script src="/origini-app/visitor/home/js/include-html.js"></script>
+    <!--    <script src="/origini-app/visitor/home/js/include-html.js"></script>-->
     <script src="/origini-app/visitor/home/js/include-url.js"></script>
-    <script src="/origini-app/visitor/home/js/include-module-plugin-in-id.js"></script>
     <script src="/origini-app/visitor/home/js/message.js"></script>
 
     <script src="/origini-app/visitor/home/js/formToObject.min.js"></script>
@@ -15,14 +14,6 @@
     <script src="/origini-app/visitor/home/js/rest-module.js"></script>
     <script src="/origini-app/visitor/home/js/rest-submit.js"></script>
 
-    <script>
-        var include = {
-            'newsletter': ['create', 'delete'],
-            'registration': ['create', 'delete'],
-            'auth': ['create', 'delete'],
-            'home': []
-        };
-    </script>
 
     <script language="JavaScript">
         function addScriptToHead(src) {
@@ -43,44 +34,86 @@
                     delay)
             });
         }
+
+
+        var IncludeToId = function (id, error, success) {
+            this.id = id;
+
+            if (typeof success !== 'function') {
+                success = function (data) {
+                    console.log('success', "included");
+                    // console.table(data);
+                    // AddMessage(data.message.info);
+                }
+            }
+
+            if (typeof error !== 'function') {
+                error = function (data) {
+                    console.log('error', "Page not found.");
+                    // console.error(data);
+                    // AddMessage(data.message.error);
+                }
+            }
+            this.error = error;
+            this.success = success;
+
+            // var obj = this;
+            this.html = function (file) {
+                includeUrl(file, this.id, success, error);
+                // return this;
+            };
+
+            this.script = function (file) {
+                addScriptToHeadDelayed(file);
+                // return this;
+            };
+
+            // return this;
+        };
+
+        var loadToHeader = new IncludeToId('home-plugins');
     </script>
 
 </head>
 <body>
 
+<div class="home-messages">
 
-<div class="home-plugins">
-    <div id="plugin-home-create">..loading</div>
-    <div id="plugin-registration-create">..loading</div>
-    <div id="plugin-registration-delete">..loading</div>
-    <div id="plugin-newsletter-create">..loading</div>
-    <div id="plugin-newsletter-delete">..loading</div>
-    <div id="plugin-auth-create">..loading</div>
-    <div id="plugin-auth-delete">..loading</div>
+</div>
+
+
+<div id="home-plugins">
+    ...
+<!--    <div id="plugin-home-create">..loading</div>-->
+
+    <!--    <div id="plugin-registration-create">..loading</div>-->
+    <!--    <div id="plugin-registration-delete">..loading</div>-->
+    <!--    <div id="plugin-newsletter-create">..loading</div>-->
+    <!--    <div id="plugin-newsletter-delete">..loading</div>-->
+    <!--    <div id="plugin-auth-create">..loading</div>-->
+    <!--    <div id="plugin-auth-delete">..loading</div>-->
 </div>
 
 
 <script>
 
-    includeModulePluginInId("home", "messages", "plugin-home-create");
+    // includeModulePluginInId("home", "messages", "plugin-home-create");
 
-    includeModulePluginInId("newsletter", "create", "plugin-newsletter-create");
-    includeModulePluginInId("newsletter", "delete", "plugin-newsletter-delete");
+    // var newsletter_create = includeToId("plugin-newsletter-create");
+    // loadToHeader.html("/origini-app/visitor/home/plugin/messages.html");
+    loadToHeader.html("/origini-app/visitor/newsletter/plugin/create.html");
+    loadToHeader.html("/origini-app/visitor/newsletter/plugin/delete.html");
+    loadToHeader.script("/origini-app/visitor/newsletter/js/foot.js");
 
-    includeModulePluginInId("registration", "create", "plugin-registration-create");
-    includeModulePluginInId("registration", "delete", "plugin-registration-delete");
-
-    includeModulePluginInId("auth", "create", "plugin-auth-create");
-    includeModulePluginInId("auth", "delete", "plugin-auth-delete");
 
 </script>
 
 
 <script>
 
-    addScriptToHeadDelayed("/origini-app/visitor/newsletter/js/foot.js");
-    addScriptToHeadDelayed("/origini-app/visitor/auth/js/foot.js");
-    addScriptToHeadDelayed("/origini-app/visitor/registration/js/foot.js");
+    // addScriptToHeadDelayed("/origini-app/visitor/newsletter/js/foot.js");
+    // addScriptToHeadDelayed("/origini-app/visitor/auth/js/foot.js");
+    // addScriptToHeadDelayed("/origini-app/visitor/registration/js/foot.js");
 
 </script>
 
