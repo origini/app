@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Newsletter</title>
+
+    <script src="../js/formToObject.min.js"></script>
+    <script src="../js/rest.js"></script>
+</head>
+<body>
+
+
+<!-- DELETE method -->
+<form>
+    <input type="hidden" name="method" value="DELETE">
+
+    <input type="hidden" name="id" value="1">
+    <input type="submit" name="submit" value="Usuń subskrybcję">
+</form>
+
+
+<!-- PUT method -->
+<form>
+    <input type="hidden" name="method" value="PUT">
+
+    <!--    <input type="text" name="_method" value="PUT">-->
+    <input type="text" name="id" value="1">
+
+    <input type="text" name="firstname" value="To">
+    <input type="text" name="lastname" value="Sa">
+    <input type="text" name="email" value="@">
+
+    <input type="submit" name="submit" value="Zaktualizuj adres E-mail">
+</form>
+
+
+<!-- READ method -->
+<form>
+    <input type="hidden" name="method" value="GET">
+
+    <input type="text" name="id" value="1">
+    <input type="submit" name="submit" value="Pobierz Status">
+</form>
+
+
+<!-- POST method -->
+<form>
+    <input type="hidden" name="method" value="POST">
+
+    <!--    <input type="text" name="firstname" value="To">-->
+    <input type="text" name="name" value="Sa">
+    <input type="text" name="email" value="@">
+
+    <input type="submit" name="submit" value="Dodaj Subskrypcję">
+</form>
+
+
+<!--<form id="specialElementsForm">-->
+<!--    <input type="hidden" name="CSR_check" value="i9dsFbYVfFiKdxsyCfym">-->
+<!--    <button type="submit" name="logout">Logout</button>-->
+<!--    <button type="submit" name="register">Register <b>button</b></button>-->
+<!--    <button>First dummy button</button>-->
+<!--    <button name="dummyButton">Second dummy button</button>-->
+<!--    <input type="image" src="../img/test.png" name="imgBtn" value="Img button value" alt="Ghita" title="Ghita">-->
+<!--</form>-->
+
+<!--<form id="testForm" enctype="multipart/form-data">-->
+<!--    <div id="fileFieldWrapper">-->
+<!--        <input type="file" name="photo">-->
+<!--    </div>-->
+<!--    <div id="fileFieldsWrapper">-->
+<!--        <input type="file" name="photos[]">-->
+<!--        <input type="file" name="photos[]">-->
+<!--        <input type="file" name="photos[]">-->
+<!--    </div>-->
+<!--    <div id="fileFieldsWrapper2">-->
+<!--        <input type="file" name="photos2" multiple>-->
+<!--    </div>-->
+<!--</form>-->
+
+<script>
+    // document.getElementsByTagName('form[action=""]').value = '../php/index.php';
+    var url = '../php/index.php';
+
+    var Newsletter = new Rest(url, '?', function (data) {
+        console.error(data);
+    }, function (data) {
+        console.table(data);
+    });
+
+
+    var forms = document.getElementsByTagName('form');
+    // console.log(forms);
+    for (var i = 0; i < forms.length; i++) {
+
+        console.log(forms[i]);
+
+        forms[i].addEventListener("submit", function (event) {
+            console.log(this);
+
+            var data = formToObject(this);
+            var method = data.method;
+            delete data.method;
+            delete data.submit;
+
+            console.log(method);
+
+            Newsletter.byMethod(method, data);
+            console.log(data);
+
+            event.preventDefault();
+        });
+    }
+</script>
+
+
+</body>
+</html>

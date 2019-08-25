@@ -106,8 +106,6 @@ venv.bak/
 admin/
 api/
 dev/
-visitor/newsletter/css/
-visitor/newsletter/plugin/
 visitor/newsletter/slim/composer.json
 visitor/newsletter/slim/composer.lock
 Would skip repository visitor/newsletter/slim/vendor/container-interop/container-interop
