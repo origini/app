@@ -1,6 +1,8 @@
-function includeUrl(file, el_id, error, success) {
+function includeUrl(file, separator, error, success) {
     var xhttp;
-    var elmnt = document.getElementById(el_id);
+
+    var el = new Element(separator);
+    var elmnt = el.first();
 
     if (typeof success !== 'function') {
         success = function () {
@@ -19,7 +21,7 @@ function includeUrl(file, el_id, error, success) {
         /* Make an HTTP request using the attribute value as the file name: */
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            console.log('el_id', el_id);
+            console.log('el_id', separator);
 
             if (this.readyState == 4) {
                 if (this.status == 200) {

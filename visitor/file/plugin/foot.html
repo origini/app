@@ -1,0 +1,10 @@
+<!--<script src="/origini-app/visitor/newsletter/js/plugin.js"></script>-->
+<script>
+    restModule('newsletter', '', '', '', function (data) {
+        console.error(data);
+        AddMessage(data.message.error);
+    }, function (data) {
+        console.table(data);
+        AddMessage(data.message.info);
+    });
+</script>

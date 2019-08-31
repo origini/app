@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+
+    <!--    <script src="/origini-app/visitor/home/js/include-html.js"></script>-->
+    <script src="/origini-app/visitor/home/js/include-url.js"></script>
+    <script src="/origini-app/visitor/home/js/message.js"></script>
+
+    <script src="/origini-app/visitor/home/js/formToObject.min.js"></script>
+    <script src="/origini-app/visitor/home/js/rest.js"></script>
+    <script src="/origini-app/visitor/home/js/rest-module.js"></script>
+    <script src="/origini-app/visitor/home/js/rest-submit.js"></script>
+
+
+    <script language="JavaScript">
+
+        function addScriptToHead(src) {
+            var head = document.getElementsByTagName('head')[0];
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = src;
+            head.appendChild(script);
+        }
+
+
+        function addScriptToHeadDelayed(src) {
+            addScriptToHead(src);
+
+            // var delay = 100;
+            // document.addEventListener("DOMContentLoaded", function () {
+            //     setTimeout(function () {
+            //             addScriptToHead(src)
+            //         },
+            //         delay)
+            // });
+        }
+
+
+        function addStyleStringToHead(string) {
+            var head = document.getElementsByTagName('head')[0];
+            var linkElement = this.document.createElement('link');
+            linkElement.setAttribute('rel', 'stylesheet');
+            linkElement.setAttribute('type', 'text/css');
+            linkElement.setAttribute('href', 'data:text/css;charset=UTF-8,' + encodeURIComponent(string));
+            head.appendChild(linkElement);
+        }
+
+        function addStyleStringToHeadDelayed(string) {
+            var delay = 50;
+            document.addEventListener("DOMContentLoaded", function () {
+                setTimeout(function () {
+                        addStyleStringToHead(string)
+                    },
+                    delay)
+            });
+        }
+
+
+        function addStyleToHead(src) {
+            var head = document.getElementsByTagName('head')[0];
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = src;
+            head.appendChild(link);
+
+            // var linkElement = this.document.createElement('link');
+            // linkElement.setAttribute('rel', 'stylesheet');
+            // linkElement.setAttribute('type', 'text/css');
+            // linkElement.setAttribute('href', src);
+            // head.appendChild(linkElement);
+        }
+
+        function addStyleToHeadDelayed(src) {
+            addStyleToHead(src);
+            //
+            // var delay = 1;
+            // setTimeout(function () {
+            //         addStyleToHead(src);
+            //     },
+            //     delay);
+        }
+
+        var IncludeToId = function (separator, error, success) {
+            this.id = separator;
+
+            if (typeof success !== 'function') {
+                success = function (data) {
+                    console.log('success', "included");
+                    // console.table(data);
+                    // AddMessage(data.message.info);
+                }
+            }
+
+            if (typeof error !== 'function') {
+                error = function (data) {
+                    console.log('error', "Page not found.");
+                    // console.error(data);
+                    // AddMessage(data.message.error);
+                }
+            }
+            this.error = error;
+            this.success = success;
+
+            // var obj = this;
+            this.html = function (file) {
+                includeUrl(file, this.separator, success, error);
+                // return this;
+            };
+
+            this.script = function (file) {
+                addScriptToHeadDelayed(file);
+                // return this;
+            };
+            this.styleString = function (file) {
+                addStyleStringToHeadDelayed(file);
+                // return this;
+            };
+            this.style = function (file) {
+                console.log('addStyleToHeadDelayed', file);
+                addStyleToHeadDelayed(file);
+                // return this;
+            };
+
+            // return this;
+        };
+
+        //var loadToHeader = new IncludeToId('home-plugins');
+
+        /*
+        var setting = {
+            "id": "home-plugins",
+            "style": ["/origini-app/visitor/newsletter/css/black.css"],
+            "script": ["/origini-app/visitor/newsletter/js/foot.js"],
+            "html": ["/origini-app/visitor/newsletter/plugin/create.html", "/origini-app/visitor/newsletter/plugin/delete.html"],
+        };
+*/
+        // TODO : id / tag, class
+        // var setting = {
+        //     "head": {
+        //         "style": "/origini-app/visitor/newsletter/css/black.css",
+        //         "script": "/origini-app/visitor/newsletter/js/foot.js"
+        //     },
+        //     "home-plugins": {
+        //         "html": [
+        //             "/origini-app/visitor/home/plugin/messages.html",
+        //             "/origini-app/visitor/newsletter/plugin/create.html",
+        //             "/origini-app/visitor/newsletter/plugin/delete.html"
+        //         ]
+        //     },
+        // };
+
+        function loadJSON(file, callback) {
+            var xobj = new XMLHttpRequest();
+            xobj.overrideMimeType("application/json");
+            xobj.open('GET', file, true);
+            // Replace 'my_data' with the path to your file
+            xobj.onreadystatechange = function () {
+                if (xobj.readyState === 4 && xobj.status === 200) {
+                    // Required use of an anonymous callback
+                    // as .open() will NOT return a value but simply returns undefined in asynchronous mode
+                    callback(xobj.responseText);
+                } else {
+                    console.error(file, xobj);
+                }
+            };
+            xobj.send(null);
+        }
+
+        function loadPluginFromFile(path) {
+            loadJSON(path, function (obj) {
+                // Parse JSON string into object
+                // console.log('obj', obj);
+                loadPlugin(obj);
+            });
+        }
+
+        function fromJsonStringToObj(obj) {
+            if (typeof obj === 'string') {
+                try {
+                    //const user = JSON.parse(data)
+                    obj = JSON.parse(obj);
+                    console.log('fromJsonStringToObj', obj);
+                } catch (err) {
+                    console.error('fromJsonStringToObj', err);
+                }
+            }
+            return obj;
+        }
+
+        function loadPlugin(obj) {
+            obj = fromJsonStringToObj(obj);
+            console.log('obj', obj);
+
+            var loadToHeader = {};
+
+            for (var target in obj) {
+
+                //type = obj[target];
+                //value = obj[target][type];
+
+
+                //console.log(typeof obj[target]);
+                //console.log(obj[target]);
+                //console.log('target:', target);
+
+                loadToHeader = new IncludeToId(target);
+
+                if (typeof obj[target] === 'object') {
+                    //console.log('obj[target]:', obj[target]);
+
+                    for (var source in obj[target]) {
+
+                        //console.log('source:', source);
+                        //console.log('obj[target][source]:', typeof obj[target][source]);
+                        //console.log('obj[target][source]:', obj[target][source]);
+                        //for (i = 0; i < obj[target].length; i++) {
+
+                        // console.log(typeof obj[target][source]);
+                        // console.log(obj[target][source]);
+                        if (typeof obj[target][source] !== 'object') {
+                            obj[target][source] = [obj[target][source]];
+                        }
+
+                        for (var i in obj[target][source]) {
+                            var url = obj[target][source][i];
+
+                            console.log(target, source, url);
+
+                            if (source === 'html') {
+                                loadToHeader.html(url);
+                            } else if (source === 'script') {
+                                loadToHeader.script(url);
+                            } else if (source === 'style') {
+                                loadToHeader.style(url);
+                            } else {
+
+                            }
+                        }
+                        //console.log(target, type, value);
+                    }
+                }
+                // console.log(target, type, value);
+            }
+
+            //return output;
+
+            // for(i = 0; i < obj.length; i++) {
+            //out += '<a href="' + arr[i].url + '">' + arr[i].display + '</a><br>';
+            //var loadToHeader = new IncludeToId('home-plugins');
+            // console.log(obj[i]);
+            // }
+            //document.getElementById("id01").innerHTML = out;
+        }
+
+
+    </script>
+
+</head>
+<body>
+
+http://localhost/origini-app/visitor/home/page/index.html
+<div class="home-messages">
+
+</div>
+
+
+<div id="home-plugins">
+    ...
+    <!--    <div id="plugin-home-create">..loading</div>-->
+
+    <!--    <div id="plugin-registration-create">..loading</div>-->
+    <!--    <div id="plugin-registration-delete">..loading</div>-->
+    <!--    <div id="plugin-newsletter-create">..loading</div>-->
+    <!--    <div id="plugin-newsletter-delete">..loading</div>-->
+    <!--    <div id="plugin-auth-create">..loading</div>-->
+    <!--    <div id="plugin-auth-delete">..loading</div>-->
+</div>
+
+
+<script>
+
+    // includeModulePluginInId("home", "messages", "plugin-home-create");
+
+    // var newsletter_create = includeToId("plugin-newsletter-create");
+    // loadToHeader.html("/origini-app/visitor/home/plugin/messages.html");
+    // loadToHeader.html("/origini-app/visitor/newsletter/plugin/create.html");
+    // loadToHeader.html("/origini-app/visitor/newsletter/plugin/delete.html");
+    // loadToHeader.script("/origini-app/visitor/newsletter/js/foot.js");
+    //loadToHeader.styleString("div { color: green; }");
+
+    // loadToHeader.styleString("body { background-color: black; color: white; }");
+    // loadToHeader.styleString("body { background-color: white; color: black; }");
+    //loadToHeader.style("/origini-app/visitor/newsletter/css/black.css");
+
+
+</script>
+
+
+<script>
+
+    // addScriptToHeadDelayed("/origini-app/visitor/newsletter/js/foot.js");
+    // addScriptToHeadDelayed("/origini-app/visitor/auth/js/foot.js");
+    // addScriptToHeadDelayed("/origini-app/visitor/registration/js/foot.js");
+
+    //loadPlugin(setting);
+
+    loadPluginFromFile("/origini-app/visitor/newsletter/config/create.json");
+
+    // loadPlugin({
+    //     "home-plugins": {
+    //         "html": [
+    //             "/origini-app/visitor/home/plugin/messages.html",
+    //             "/origini-app/visitor/newsletter/plugin/create.html",
+    //             "/origini-app/visitor/newsletter/plugin/delete.html"
+    //         ],
+    //     }
+    // });
+    // loadPlugin({
+    //     "head": {
+    //         "style": "/origini-app/visitor/newsletter/css/black.css",
+    //         "script": "/origini-app/visitor/newsletter/js/foot.js"
+    //     }
+    // });
+
+</script>
+
+
+</body>
+</html>

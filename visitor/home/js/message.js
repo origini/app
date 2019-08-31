@@ -9,15 +9,29 @@
 //
 // };
 
-function AddMessage(message, classname) {
-    console.log(message);
 
-    if (typeof classname !== 'string') {
-        classname = 'home-messages';
+var Message = function (selector) {
+    this.selector = selector;
+
+
+    this.add = function (message) {
+        console.log(message);
+
+        if (typeof classname !== 'string') {
+            classname = 'home-messages';
+        }
+        handle = document.getElementsByClassName(classname)
+        if (handle)
+
+            var node = document.createElement("LI");                 // Create a <li> node
+        var textnode = document.createTextNode(message);         // Create a text node
+        node.appendChild(textnode);
+        document.getElementsByClassName(classname)[0].appendChild(node);
     }
+}
 
-    var node = document.createElement("LI");                 // Create a <li> node
-    var textnode = document.createTextNode(message);         // Create a text node
-    node.appendChild(textnode);
-    document.getElementsByClassName(classname)[0].appendChild(node);
+
+function AddMessage(text, classname) {
+    var message = new Message(classname);
+    message.add(text);
 }

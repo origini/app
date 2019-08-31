@@ -1,0 +1,17 @@
+{
+  "#home-plugins": {
+    "docs" : {
+      "version": "0.0.1",
+      "author": "Tom Sapletta",
+      "company": "Softreck",
+      "name": "Newsletter",
+      "tags": "Newsletter Create, Read, Update, Delete"
+    },
+    "html": [
+      "/origini-app/visitor/home/plugin/messages.html",
+      "/origini-app/visitor/newsletter/plugin/create.html"
+    ],
+    "style": "/origini-app/visitor/newsletter/css/black.css",
+    "script": "/origini-app/visitor/newsletter/js/foot.js"
+  }
+}

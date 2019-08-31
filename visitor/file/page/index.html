@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Newsletter</title>
+
+    <script src="../js/formToObject.min.js"></script>
+    <script src="../js/rest.js"></script>
+</head>
+<body>
+
+
+<!--&lt;!&ndash; DELETE method &ndash;&gt;-->
+<!--<form>-->
+<!--    <input type="hidden" name="method" value="DELETE">-->
+
+<!--    <input type="hidden" name="id" value="1">-->
+<!--    <input type="submit" name="submit" value="Usuń subskrybcję">-->
+<!--</form>-->
+
+
+<!--&lt;!&ndash; PUT method &ndash;&gt;-->
+<!--<form>-->
+<!--    <input type="hidden" name="method" value="PUT">-->
+
+<!--    &lt;!&ndash;    <input type="text" name="_method" value="PUT">&ndash;&gt;-->
+<!--    <input type="text" name="id" value="1">-->
+
+<!--    <input type="text" name="firstname" value="To">-->
+<!--    <input type="text" name="lastname" value="Sa">-->
+<!--    <input type="text" name="email" value="@">-->
+
+<!--    <input type="submit" name="submit" value="Zaktualizuj adres E-mail">-->
+<!--</form>-->
+
+
+<!--&lt;!&ndash; READ method &ndash;&gt;-->
+<!--<form>-->
+<!--    <input type="hidden" name="method" value="GET">-->
+
+<!--    <input type="text" name="id" value="1">-->
+<!--    <input type="submit" name="submit" value="Pobierz Status">-->
+<!--</form>-->
+
+
+<!--&lt;!&ndash; POST method &ndash;&gt;-->
+<!--<form>-->
+<!--    <input type="hidden" name="method" value="POST">-->
+
+<!--    &lt;!&ndash;    <input type="text" name="firstname" value="To">&ndash;&gt;-->
+<!--    <input type="text" name="name" value="Sa">-->
+<!--    <input type="text" name="email" value="@">-->
+
+<!--    <input type="submit" name="submit" value="Dodaj Subskrypcję">-->
+<!--</form>-->
+
+<form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
+
+    <fieldset>
+        <h2>Json File</h2>
+        <input type='file' id='fileinput'>
+        <input type='button' id='btnLoad' value='Load' onclick='loadFile();'>
+    </fieldset>
+</form>
+
+
+<script type="text/javascript">
+
+    function loadFile() {
+        var input, file, fr;
+
+        if (typeof window.FileReader !== 'function') {
+            alert("The file API isn't supported on this browser yet.");
+            return;
+        }
+
+        input = document.getElementById('fileinput');
+        if (!input) {
+            alert("Um, couldn't find the fileinput element.");
+        }
+        else if (!input.files) {
+            alert("This browser doesn't seem to support the `files` property of file inputs.");
+        }
+        else if (!input.files[0]) {
+            alert("Please select a file before clicking 'Load'");
+        }
+        else {
+            file = input.files[0];
+            fr = new FileReader();
+            fr.onload = receivedText;
+            fr.readAsText(file);
+        }
+
+        function receivedText(e) {
+            let lines = e.target.result;
+            var newArr = JSON.parse(lines);
+        }
+    }
+</script>
+
+
+
+
+<script>
+    // document.getElementsByTagName('form[action=""]').value = '../php/index.php';
+    // TODO full path
+    //var url = 'origini-app/visitor/newsletter/page/index.php';
+    var url = '../php/index.php';
+
+    var Newsletter = new Rest(url, '?', function (data) {
+        console.error(data);
+    }, function (data) {
+        console.table(data);
+    });
+
+
+    var forms = document.getElementsByTagName('form');
+    // console.log(forms);
+    for (var i = 0; i < forms.length; i++) {
+
+        console.log(forms[i]);
+
+        forms[i].addEventListener("submit", function (event) {
+            console.log(this);
+
+            var data = formToObject(this);
+            var method = data.method;
+            delete data.method;
+            delete data.submit;
+
+            console.log(method);
+
+            Newsletter.byMethod(method, data);
+            console.log(data);
+
+            event.preventDefault();
+        });
+    }
+</script>
+
+
+
+</body>
+</html>
