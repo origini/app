@@ -4,20 +4,16 @@
     <meta charset="UTF-8">
     <title>Home</title>
 
-    TODO: które usunąć skrypty
-    TODO: jeden plik apiunit.js
-
     <!--    <script src="/origini-app/visitor/home/js/include-html.js"></script>-->
     <script src="/origini-app/visitor/home/js/element.js"></script>
-    <script src="/origini-app/visitor/home/js/message.js"></script>
+<!--    <script src="/origini-app/visitor/home/js/message.js"></script>-->
 
     <script src="/origini-app/visitor/home/js/include-url.js"></script>
 
-    <script src="/origini-app/visitor/home/js/formToObject.min.js"></script>
-    <script src="/origini-app/visitor/home/js/rest.js"></script>
-    <script src="/origini-app/visitor/home/js/rest-module.js"></script>
-    <script src="/origini-app/visitor/home/js/rest-submit.js"></script>
-
+<!--    <script src="/origini-app/visitor/home/js/formToObject.min.js"></script>-->
+<!--    <script src="/origini-app/visitor/home/js/rest.js"></script>-->
+<!--    <script src="/origini-app/visitor/home/js/rest-module.js"></script>-->
+<!--    <script src="/origini-app/visitor/home/js/rest-submit.js"></script>-->
 
     <script src="/origini-app/visitor/home/js/apiunit.js"></script>
 
@@ -25,9 +21,9 @@
 <body>
 
 http://localhost/origini-app/visitor/home/page/index.html
-<div class="home-messages">
+<!--<div class="home-messages">-->
 
-</div>
+<!--</div>-->
 
 
 <div id="home-plugins">
@@ -40,9 +36,14 @@ http://localhost/origini-app/visitor/home/page/index.html
 
     var apiunit = new Apiunit();
     apiunit.url([
-        "/origini-app/visitor/newsletter/config/create.json",
-        "/origini-app/visitor/newsletter/config/delete.json"
+        "/origini-app/visitor/newsletter/config/create.json"
+        ,"/origini-app/visitor/newsletter/config/delete.json"
+        ,"/origini-app/visitor/newsletter/config/update.json"
+        ,"/origini-app/visitor/newsletter/config/status.json"
     ]);
+    // apiunit.url([
+    //     "/origini-app/visitor/newsletter/config/update.json"
+    // ]);
     //apiunit.url("/origini-app/visitor/newsletter/config/create.json");
 
     // loadPlugin({

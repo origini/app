@@ -1,6 +1,6 @@
 {
   "#home-plugins": {
-    "docs" : {
+    "docs": {
       "version": "0.0.1",
       "author": "Tom Sapletta",
       "company": "Softreck",
@@ -12,6 +12,14 @@
       "/origini-app/visitor/newsletter/plugin/create.html"
     ],
     "style": "/origini-app/visitor/newsletter/css/black.css",
-    "script": "/origini-app/visitor/newsletter/js/foot.js"
+    "script": [
+      "/origini-app/visitor/home/js/formToObject.min.js",
+      "/origini-app/visitor/home/js/message.js",
+      "/origini-app/visitor/home/js/rest.js",
+      "/origini-app/visitor/home/js/rest-module.js",
+    ],
+    "script-onload": [
+      "/origini-app/visitor/newsletter/js/foot.js"
+    ]
   }
 }

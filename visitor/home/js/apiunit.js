@@ -12,7 +12,6 @@ var Apiunit = function () {
 
     var apiunit = this;
 
-
     this.url = function (path, error, success) {
         if (typeof success !== 'function') {
             success = this.success;
@@ -140,9 +139,25 @@ var Apiunit = function () {
                                 console.error('!exist: ', url);
                             }
 
+                        } else if (source === 'script-onload') {
+                            if (!exist_in_apiunit) {
+                                loadToHeader.script_onload(url);
+                                apiunit.included.push(url);
+                            } else {
+                                console.error('!exist: ', url);
+                            }
+
                         } else if (source === 'style') {
                             if (!exist_in_apiunit) {
                                 loadToHeader.style(url);
+                                apiunit.included.push(url);
+                            } else {
+                                console.error('!exist: ', url);
+                            }
+
+                        } else if (source === 'style-onload') {
+                            if (!exist_in_apiunit) {
+                                loadToHeader.style_onload(url);
                                 apiunit.included.push(url);
                             } else {
                                 console.error('!exist: ', url);
@@ -218,15 +233,16 @@ function addStyleStringToHead(string) {
     head.appendChild(linkElement);
 }
 
-function addStyleStringToHeadDelayed(string) {
-    var delay = 50;
-    document.addEventListener("DOMContentLoaded", function () {
-        setTimeout(function () {
-                addStyleStringToHead(string)
-            },
-            delay)
-    });
-}
+//
+// function addStyleStringToHeadDelayed(string) {
+//     var delay = 50;
+//     document.addEventListener("DOMContentLoaded", function () {
+//         setTimeout(function () {
+//                 addStyleStringToHead(string)
+//             },
+//             delay)
+//     });
+// }
 
 
 function addStyleToHead(src) {
@@ -297,18 +313,34 @@ var IncludeToId = function (separator, error, success) {
         // addScriptToHeadDelayed(file);
         addScriptToHead(file);
         //this.included.push(file);
-
+        // return this;
+    };
+    this.script_onload = function (file) {
+        // addScriptToHeadDelayed(file);
+        window.onload = function () {
+            addScriptToHead(file);
+        };
+        //this.included.push(file);
         // return this;
     };
     this.styleString = function (file) {
-        addStyleStringToHeadDelayed(file);
+        // addStyleStringToHeadDelayed(file);
+        addStyleStringToHead(file);
         //this.included.push(file);
 
         // return this;
     };
     this.style = function (file) {
         console.log('addStyleToHeadDelayed', file);
-        addStyleToHeadDelayed(file);
+        addStyleToHead(file);
+        //this.included.push(file);
+        // return this;
+    };
+    this.style_onload = function (file) {
+        window.onload = function () {
+            console.log('style_onload', file);
+            addStyleToHead(file);
+        }
         //this.included.push(file);
         // return this;
     };

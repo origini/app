@@ -16,7 +16,7 @@ function restModule(modulename, classname_prefix, domain, restfile, error, succe
 
     var url = domain + modulename + restfile;
 
-    var Newsletter = new Rest(url, '?', error, success);
+    var rest_form = new Rest(url, '?', error, success);
 
 
     // var forms = document.getElementsByTagName('form');
@@ -27,23 +27,26 @@ function restModule(modulename, classname_prefix, domain, restfile, error, succe
 
     // console.log(forms);
     for (var i = 0; i < forms.length; i++) {
-
-        console.log(forms[i]);
-
-        forms[i].addEventListener("submit", function (event) {
-            console.log(this);
-
-            var data = formToObject(this);
-            var method = data.method;
-            delete data.method;
-            delete data.submit;
-
-            console.log(method);
-
-            Newsletter.byMethod(method, data);
-            console.log(data);
-
-            event.preventDefault();
-        });
+        formData(forms[i], rest_form, error, success);
     }
+}
+
+function formData(form, rest_form, error, success) {
+    console.log(form);
+
+    form.addEventListener("submit", function (event) {
+        console.log(this);
+
+        var data = formToObject(this);
+        var method = data.method;
+        delete data.method;
+        delete data.submit;
+
+        console.log(method);
+
+        rest_form.byMethod(method, data);
+        console.log(data);
+
+        event.preventDefault();
+    });
 }

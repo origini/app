@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Newsletter</title>
+
+    <script src="/origini-app/visitor/home/js/element.js"></script>
+    <script src="/origini-app/visitor/home/js/include-url.js"></script>
+    <script src="/origini-app/visitor/home/js/apiunit.js"></script>
+
+    <!--    <script src="../js/formToObject.min.js"></script>-->
+    <!--    <script src="../js/rest.js"></script>-->
+</head>
+<body>
+
+localhost/origini-app/visitor/newsletter/page/create.html
+
+<div id="home-plugins">
+    ...
+
+</div>
+
+
+<script>
+
+    var apiunit = new Apiunit();
+    apiunit.url([
+        "/origini-app/visitor/newsletter/config/create.json"
+    ]);
+    // apiunit.json({
+    //     "#home-plugins": {
+    //         "docs": {
+    //             "version": "0.0.1",
+    //             "author": "Tom Sapletta",
+    //             "company": "Softreck",
+    //             "name": "Newsletter",
+    //             "tags": "Newsletter Create, Read, Update, Delete"
+    //         },
+    //         "html": [
+    //             "/origini-app/visitor/home/plugin/messages.html",
+    //             "/origini-app/visitor/newsletter/plugin/create.html"
+    //         ],
+    //         "style": "/origini-app/visitor/newsletter/css/black.css",
+    //         "script": [
+    //             "/origini-app/visitor/home/js/formToObject.min.js",
+    //             "/origini-app/visitor/home/js/message.js",
+    //             "/origini-app/visitor/home/js/rest.js",
+    //             "/origini-app/visitor/home/js/rest-module.js",
+    //         ],
+    //         "script-onload": [
+    //             "/origini-app/visitor/newsletter/js/foot.js"
+    //         ]
+    //
+    //     }
+    // });
+
+</script>
+
+</body>
+</html>
