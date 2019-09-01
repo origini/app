@@ -16,7 +16,7 @@
       "/origini-app/visitor/home/js/formToObject.min.js",
       "/origini-app/visitor/home/js/message.js",
       "/origini-app/visitor/home/js/rest.js",
-      "/origini-app/visitor/home/js/rest-module.js",
+      "/origini-app/visitor/home/js/rest-module.js"
     ],
     "script-onload": [
       "/origini-app/visitor/newsletter/js/foot.js"

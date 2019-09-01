@@ -7,6 +7,9 @@
       "name": "Newsletter",
       "tags": "Newsletter Create, Read, Update, Delete"
     },
+    "image": [
+      "/origini-app/visitor/home/img/apiunit.png"
+    ],
     "html": [
       "/origini-app/visitor/home/plugin/messages.html",
       "/origini-app/visitor/newsletter/plugin/delete.html"
@@ -16,7 +19,7 @@
       "/origini-app/visitor/home/js/formToObject.min.js",
       "/origini-app/visitor/home/js/message.js",
       "/origini-app/visitor/home/js/rest.js",
-      "/origini-app/visitor/home/js/rest-module.js",
+      "/origini-app/visitor/home/js/rest-module.js"
     ],
     "script-onload": [
       "/origini-app/visitor/newsletter/js/foot.js"

@@ -80,7 +80,6 @@ var Apiunit = function () {
         }
 
         obj = this.fromJsonStringToObj(obj);
-        console.log('obj', obj);
 
         var loadToHeader = {};
 
@@ -124,6 +123,13 @@ var Apiunit = function () {
                             //     var doc_val = obj[target][source][i][doc_name];
                             loadToHeader.comment(i, url);
                             // }
+                        } else if (source === 'image') {
+                            if (!exist_in_apiunit) {
+                                loadToHeader.image(url);
+                                apiunit.included.push(url);
+                            } else {
+                                console.error('!exist: ', url);
+                            }
                         } else if (source === 'html') {
                             if (!exist_in_apiunit) {
                                 loadToHeader.html(url);
@@ -189,10 +195,11 @@ var Apiunit = function () {
         if (typeof obj === 'string') {
             try {
                 //const user = JSON.parse(data)
+                //console.log('fromJsonStringToObj before', obj);
                 obj = JSON.parse(obj);
-                console.log('fromJsonStringToObj', obj);
+                console.log('fromJsonStringToObj after', obj);
             } catch (err) {
-                console.error('fromJsonStringToObj', err);
+                console.error('!fromJsonStringToObj błąd formatu JSON, sprawdź czy nie ma przecinka na koncu ostatniego elementu listy', err, obj);
             }
         }
         return obj;
@@ -270,6 +277,44 @@ function addStyleToHeadDelayed(src) {
     //     delay);
 }
 
+// <a href="/path/to/image.jpg" download="FileName.jpg">
+function includeImgA(url, fileName) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.responseType = "blob";
+    xhr.onload = function () {
+        var urlCreator = window.URL || window.webkitURL;
+        var imageUrl = urlCreator.createObjectURL(this.response);
+        var tag = document.createElement('a');
+        tag.href = imageUrl;
+        tag.download = fileName;
+        document.body.appendChild(tag);
+        tag.click();
+        document.body.removeChild(tag);
+    }
+    xhr.send();
+}
+
+function includeImg(url, separator) {
+    console.log('apiunit / image / ' + url);
+    var el = new Element(separator);
+    var elmnt = el.first();
+
+    let img = new Image;
+    img.onload = function () {
+        console.log("Including IMG:", url);
+        elmnt.appendChild(img);
+    };
+    img.src = url;  // erst nach dem Event Listener!
+
+    // var image = document.images[0];
+    // var downloadingImage = new Image();
+    // downloadingImage.onload = function () {
+    //     image.src = this.src;
+    // };
+    // downloadingImage.src = url;
+}
+
 var IncludeToId = function (separator, error, success) {
     this.separator = separator;
     //this.included = {};
@@ -302,6 +347,30 @@ var IncludeToId = function (separator, error, success) {
         // return this;
     };
 
+    this.image = function (file) {
+        //includeImg(file, this.separator, this.error, this.success);
+        includeImg(file, this.separator, this.error, this.success);
+        //this.included.push(file);
+
+        // return this;
+    };
+
+    // let img = new Image;
+    //
+    // img.onload = function() {
+    //     console.log ("Bild geladen");
+    //     elem.appendChild (img);
+    // }
+    // img.src = "../img/apiunit.png";  // erst nach dem Event Listener!
+    //
+    // window.onunload = function() {
+    //     alert('bye bye Honey')
+    // };
+    //
+    // window.onload = function () {
+    //     console.log('Dokument geladen');
+    // }
+    //
     this.html = function (file) {
         includeUrl(file, this.separator, this.error, this.success);
         //this.included.push(file);
