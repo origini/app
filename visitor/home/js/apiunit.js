@@ -422,22 +422,22 @@ var IncludeToId = function (separator, error, success) {
 /*
 var setting = {
     "id": "home-plugins",
-    "style": ["/origini-app/visitor/newsletter/css/black.css"],
-    "script": ["/origini-app/visitor/newsletter/js/foot.js"],
-    "html": ["/origini-app/visitor/newsletter/plugin/create.html", "/origini-app/visitor/newsletter/plugin/delete.html"],
+    "style": ["/visitor/newsletter/css/black.css"],
+    "script": ["/visitor/newsletter/js/foot.js"],
+    "html": ["/visitor/newsletter/plugin/create.html", "/visitor/newsletter/plugin/delete.html"],
 };
 */
 // TODO : id / tag, class
 // var setting = {
 //     "head": {
-//         "style": "/origini-app/visitor/newsletter/css/black.css",
-//         "script": "/origini-app/visitor/newsletter/js/foot.js"
+//         "style": "/visitor/newsletter/css/black.css",
+//         "script": "/visitor/newsletter/js/foot.js"
 //     },
 //     "home-plugins": {
 //         "html": [
-//             "/origini-app/visitor/home/plugin/messages.html",
-//             "/origini-app/visitor/newsletter/plugin/create.html",
-//             "/origini-app/visitor/newsletter/plugin/delete.html"
+//             "/visitor/home/plugin/messages.html",
+//             "/visitor/newsletter/plugin/create.html",
+//             "/visitor/newsletter/plugin/delete.html"
 //         ]
 //     },
 // };
