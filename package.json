@@ -1,0 +1,14 @@
+{
+  "name": "origini-app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "fs": "*",
+    "qs": "^6.5.2",
+    "readline": "*"
+  }
+}
