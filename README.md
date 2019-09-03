@@ -1,6 +1,13 @@
 # app
 Application for Connection with allegro and ebay, research on market, filtering, management
 
+https://app.origini.pl
+
+https://github.com/origini/app
+
+git clone https://github.com/origini/app.git
+
+
 ## environment
 docker
 python
