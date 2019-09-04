@@ -2,9 +2,20 @@
   "name": "origini-app",
   "version": "0.0.1",
   "private": true,
+  "description": "nodejs image demo",
+  "author": "Tom Sapletta <tom@sapletta.com>",
+  "keywords": [
+    "nodejs",
+    "bootstrap",
+    "express",
+    "origini"
+  ],
+  "license": "MIT",
+  "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+
   "dependencies": {
     "express": "^4.16.4",
     "fs": "*",

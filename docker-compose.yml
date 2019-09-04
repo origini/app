@@ -1,13 +1,11 @@
-version: "2"
+version: '2'
+
 services:
   node:
-    image: "node:8"
-    user: "node"
-    working_dir: /home/node/app
-    environment:
-      - NODE_ENV=production
+    tty: true # Enables debugging capabilities when attached to this container.
+    image: 'bitnami/node:10'
+    # command: sh -c 'npm install && npm start'
+    ports:
+      - 3000:3000
     volumes:
-      - ./:/home/node/app
-    expose:
-      - "89"
-    command: "npm start"
+      - .:/app

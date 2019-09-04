@@ -9,6 +9,9 @@ git clone https://github.com/origini/app.git
 
 
 ## environment
+bash scripts
+https://github.com/npocmaka/batch.scripts
+
 docker
 python
 express framework 
