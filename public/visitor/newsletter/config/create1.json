@@ -1,0 +1,47 @@
+{
+  "docs": {
+    "version": "0.0.1",
+    "author": "Tom Sapletta",
+    "company": "Softreck",
+    "name": "Newsletter",
+    "tags": "Newsletter Create, Read, Update, Delete"
+  },
+  "env": {
+    "local": {
+      "frontend": "http://localhost:88",
+      "backend": "http://localhost:89",
+      "git": "https://github.com/origini/api.git",
+      "version": "0.0.1"
+    },
+    "test": "http://api.origini.vodapp.com:88/items/1",
+    "live": "http://api.origini.pl/items/1"
+  },
+  "frontend": {
+    "#home-plugins": {
+      "image": [
+        "/visitor/home/img/apiunit.png"
+      ],
+      "html": [
+        "/visitor/home/plugin/messages.html",
+        "/visitor/newsletter/plugin/create.html"
+      ],
+      "style": [
+        "/visitor/newsletter/css/black.css",
+        "/visitor/home/css/mobile.css"
+      ],
+      "script": [
+        "/visitor/home/js/formToObject.min.js",
+        "/visitor/home/js/message.js",
+        "/visitor/home/js/rest.js",
+        "/visitor/home/js/form-event.js",
+        "/visitor/home/js/rest-url.js"
+      ],
+      "script-delay": [
+        "/visitor/newsletter/js/foot.js"
+      ]
+    }
+  },
+  "backend": {
+
+  }
+}

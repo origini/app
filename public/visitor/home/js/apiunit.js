@@ -1,12 +1,18 @@
 var Apiunit = function () {
 
+    // this.router = router;
+    this.cfg = {};
+    this.cfg.router = {};
+
+    // this.config = config;
+
     this.included = [];
 
     this.success = function (elem) {
-        console.log("Api Unit Success");
+        console.log("Api Unit Success".elem);
     };
 
-    this.error = function () {
+    this.error = function (elem) {
         console.error("Api Unit Problem");
     };
 
@@ -39,14 +45,28 @@ var Apiunit = function () {
         return this;
     };
 
+    this.router = function (router, error, success) {
+        // if (typeof success !== 'function') {
+        //     success = this.success;
+        // }
+        // if (typeof error !== 'function') {
+        //     error = this.error;
+        // }
+        this.cfg.router = router;
+
+        return this;
+    };
+
+
     this.json = function (obj, error, success) {
-        if (typeof success !== 'function') {
-            success = this.success;
-        }
-        if (typeof error !== 'function') {
-            error = this.error;
-        }
-        apiunit.loadPlugin(obj);
+        // if (typeof success !== 'function') {
+        //     success = this.success;
+        // }
+        // if (typeof error !== 'function') {
+        //     error = this.error;
+        // }
+        apiunit.loadPlugin(obj, error, success);
+
         return this;
     };
 
@@ -81,118 +101,75 @@ var Apiunit = function () {
 
         obj = this.fromJsonStringToObj(obj);
 
-        var loadToHeader = {};
+        var router = this.cfg.router;
+        var exe = {};
+        // for (var target in obj) {
 
-        for (var target in obj) {
-
-            //type = obj[target];
-            //value = obj[target][type];
+        //type = obj[target];
+        //value = obj[target][type];
 
 
-            //console.log(typeof obj[target]);
-            //console.log(obj[target]);
-            //console.log('target:', target);
+        //console.log(typeof obj[target]);
+        //console.log(obj[target]);
+        //console.log('target:', target);
 
-            loadToHeader = new IncludeToId(target, error, success);
+        // router = new Router(target, error, success);
 
-            if (typeof obj[target] === 'object') {
-                //console.log('obj[target]:', obj[target]);
+        if (typeof obj === 'object') {
+            //console.log('obj:', obj);
 
-                for (var source in obj[target]) {
+            for (var source in obj) {
 
-                    //console.log('source:', source);
-                    //console.log('obj[target][source]:', typeof obj[target][source]);
-                    //console.log('obj[target][source]:', obj[target][source]);
-                    //for (i = 0; i < obj[target].length; i++) {
+                //console.log('source:', source);
+                //console.log('obj[source]:', typeof obj[source]);
+                //console.log('obj[source]:', obj[source]);
+                //for (i = 0; i < obj.length; i++) {
 
-                    // console.log(typeof obj[target][source]);
-                    // console.log(obj[target][source]);
-                    if (typeof obj[target][source] !== 'object') {
-                        obj[target][source] = [obj[target][source]];
-                    }
+                // console.log(typeof obj[source]);
+                // console.log(obj[source]);
 
-                    for (var i in obj[target][source]) {
-                        var url = obj[target][source][i];
-
-                        //console.log(target, source, url);
-
-                        var exist_in_apiunit = apiunit.included.indexOf(url) !== -1;
-
-                        if (source === 'docs') {
-                            // for (var doc_name in url) {
-                            //     var doc_val = obj[target][source][i][doc_name];
-                            loadToHeader.comment(i, url);
-                            // }
-                        } else if (source === 'image') {
-                            if (!exist_in_apiunit) {
-                                loadToHeader.image(url);
-                                apiunit.included.push(url);
-                            } else {
-                                console.error('!exist: ', url);
-                            }
-                        } else if (source === 'html') {
-                            if (!exist_in_apiunit) {
-                                loadToHeader.html(url);
-                                apiunit.included.push(url);
-                            } else {
-                                console.error('!exist: ', url);
-                            }
-                        } else if (source === 'script') {
-                            if (!exist_in_apiunit) {
-                                loadToHeader.script(url);
-                                apiunit.included.push(url);
-                            } else {
-                                console.error('!exist: ', url);
-                            }
-
-                        } else if (source === 'script-onload') {
-                            if (!exist_in_apiunit) {
-                                loadToHeader.script_onload(url);
-                                apiunit.included.push(url);
-                            } else {
-                                console.error('!exist: ', url);
-                            }
-
-                        } else if (source === 'script-delay') {
-                            if (!exist_in_apiunit) {
-                                loadToHeader.script_delay(url);
-                                apiunit.included.push(url);
-                            } else {
-                                console.error('!exist: ', url);
-                            }
-
-                        } else if (source === 'style') {
-                            if (!exist_in_apiunit) {
-                                loadToHeader.style(url);
-                                apiunit.included.push(url);
-                            } else {
-                                console.error('!exist: ', url);
-                            }
-
-                        } else if (source === 'style-onload') {
-                            if (!exist_in_apiunit) {
-                                loadToHeader.style_onload(url);
-                                apiunit.included.push(url);
-                            } else {
-                                console.error('!exist: ', url);
-                            }
-
-                        } else {
-
-                        }
-                    }
-                    //console.log(target, type, value);
+                if (typeof obj[source] !== 'object') {
+                    obj[source] = [obj[source]];
                 }
+
+
+                for (var i in obj[source]) {
+
+                    var url = obj[source][i];
+
+                    //console.log(target, source, url);
+
+                    var exist_in_apiunit = apiunit.included.indexOf(url) !== -1;
+
+                    if (!exist_in_apiunit) {
+
+                        try {
+                            exe = router[source](url);
+                            console.log('router[source] =', exe);
+                        } catch (err) {
+                            console.error('!router[source]', err, obj);
+                        }
+
+                        apiunit.included.push(url);
+                    } else {
+                        console.error('!exist: ', url);
+                    }
+
+                }
+                //console.log(target, type, value);
             }
-            // console.log(target, type, value);
+        } else {
+            console.error('apiunit obj: is not object:', obj);
         }
-        console.log('apiunit.included', apiunit.included);
+        // console.log(target, type, value);
+        // }
+        console.log('apiunit.included:', apiunit.included);
 
         //return output;
 
         // for(i = 0; i < obj.length; i++) {
         //out += '<a href="' + arr[i].url + '">' + arr[i].display + '</a><br>';
-        //var loadToHeader = new IncludeToId('home-plugins');
+        //var router = new IncludeToId('home-plugins');
         // console.log(obj[i]);
         // }
         //document.getElementById("id01").innerHTML = out;
@@ -320,113 +297,7 @@ function includeImg(url, separator) {
     // downloadingImage.src = url;
 }
 
-var IncludeToId = function (separator, error, success) {
-    this.separator = separator;
-    //this.included = {};
-
-
-    if (typeof error !== 'function') {
-        error = function (data) {
-            console.log('error', "Page not found.");
-            // console.error(data);
-            // AddMessage(data.message.error);
-        }
-    }
-
-    if (typeof success !== 'function') {
-        success = function (data) {
-            console.log('success', "included");
-            // console.table(data);
-            // AddMessage(data.message.info);
-        }
-    }
-
-    this.error = error;
-    this.success = success;
-
-
-    // var obj = this;
-    this.comment = function (name, value) {
-        console.log('apiunit: ', name, value);
-        //includeUrl(file, this.separator, this.error, this.success);
-        // return this;
-    };
-
-    this.image = function (file) {
-        //includeImg(file, this.separator, this.error, this.success);
-        includeImg(file, this.separator, this.error, this.success);
-        //this.included.push(file);
-
-        // return this;
-    };
-
-    // let img = new Image;
-    //
-    // img.onload = function() {
-    //     console.log ("Bild geladen");
-    //     elem.appendChild (img);
-    // }
-    // img.src = "../img/apiunit.png";  // erst nach dem Event Listener!
-    //
-    // window.onunload = function() {
-    //     alert('bye bye Honey')
-    // };
-    //
-    // window.onload = function () {
-    //     console.log('Dokument geladen');
-    // }
-    //
-    this.html = function (file) {
-        includeUrl(file, this.separator, this.error, this.success);
-        //this.included.push(file);
-
-        // return this;
-    };
-
-    this.script = function (file) {
-        // addScriptToHeadDelayed(file);
-        addScriptToHead(file);
-        //this.included.push(file);
-        // return this;
-    };
-    this.script_onload = function (file) {
-        // addScriptToHeadDelayed(file);
-        window.onload = function () {
-            addScriptToHead(file);
-        };
-        //this.included.push(file);
-        // return this;
-    };
-    this.script_delay = function (file) {
-        addScriptToHeadDelayed(file);
-    };
-    this.styleString = function (file) {
-        // addStyleStringToHeadDelayed(file);
-        addStyleStringToHead(file);
-        //this.included.push(file);
-
-        // return this;
-    };
-    this.style = function (file) {
-        console.log('addStyleToHeadDelayed', file);
-        addStyleToHead(file);
-        //this.included.push(file);
-        // return this;
-    };
-    this.style_onload = function (file) {
-        window.onload = function () {
-            console.log('style_onload', file);
-            addStyleToHead(file);
-        }
-        //this.included.push(file);
-        // return this;
-    };
-
-    // return this;
-};
-
 //var loadToHeader = new IncludeToId('home-plugins');
-
 /*
 var setting = {
     "id": "home-plugins",
@@ -450,4 +321,69 @@ var setting = {
 //     },
 // };
 
+
+/*
+if (source === 'docs') {
+    // for (var doc_name in url) {
+    //     var doc_val = obj[source][i][doc_name];
+    router.comment(i, url);
+    // }
+} else if (source === 'image') {
+    if (!exist_in_apiunit) {
+        router.image(url);
+        apiunit.included.push(url);
+    } else {
+        console.error('!exist: ', url);
+    }
+} else if (source === 'html') {
+    if (!exist_in_apiunit) {
+        router.html(url);
+        apiunit.included.push(url);
+    } else {
+        console.error('!exist: ', url);
+    }
+} else if (source === 'script') {
+    if (!exist_in_apiunit) {
+        router.script(url);
+        apiunit.included.push(url);
+    } else {
+        console.error('!exist: ', url);
+    }
+
+} else if (source === 'script-onload') {
+    if (!exist_in_apiunit) {
+        router.script_onload(url);
+        apiunit.included.push(url);
+    } else {
+        console.error('!exist: ', url);
+    }
+
+} else if (source === 'script-delay') {
+    if (!exist_in_apiunit) {
+        router.script_delay(url);
+        apiunit.included.push(url);
+    } else {
+        console.error('!exist: ', url);
+    }
+
+} else if (source === 'style') {
+    if (!exist_in_apiunit) {
+        router.style(url);
+        apiunit.included.push(url);
+    } else {
+        console.error('!exist: ', url);
+    }
+
+} else if (source === 'style-onload') {
+    if (!exist_in_apiunit) {
+        router.style_onload(url);
+        apiunit.included.push(url);
+    } else {
+        console.error('!exist: ', url);
+    }
+
+} else {
+
+}
+*/
 

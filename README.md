@@ -10,6 +10,8 @@ git clone https://github.com/origini/app.git
 cd F:\xampp73\htdocs\origini-app\
 docker-compose up -d
 
+
+
 ## environment
 bash scripts
 https://github.com/npocmaka/batch.scripts
@@ -18,6 +20,8 @@ docker
 python
 express framework 
 migration
+
+
 
 
 ### Install the dependencies
@@ -38,7 +42,36 @@ migration
     
 ## TODO
 
-podział na moduły:
+
+## ApiUnit
+
+## Environment/Tier 
+
+### Local                
+  	Developer's 
+  	desktop/workstation
+  	
+### Development/Trunk   
+    Development server acting as a sandbox where unit testing may be performed by the developer
+  
+### Integration 
+	CI build target, or for developer testing of side effects
+	
+### Testing/Test/QC/Internal Acceptance
+	The environment where interface testing is performed. A quality control team ensures that the new code will not have any impact on the existing functionality and tests major functionalities of the system after deploying the new code in the test environment.
+
+The purpose of the test environment is to allow human testers to exercise new and changed code via either automated checks or non-automated techniques. After the developer accepts the new code and configurations through unit testing in the development environment, the items are moved to one or more test environments.[3] Upon test failure, the test environment can remove the faulty code from the test platforms, contact the responsible developer, and provide detailed test and result logs. If all tests pass, the test environment or a continuous integration framework controlling the tests can automatically promote the code to the next deployment environment. 
+ 
+### Staging/Stage/Model/Pre-production/External-Client Acceptance/Demo 
+	Mirror of production environment
+
+A stage or staging environment is an environment for testing that exactly resembles a production environment.[7] It seeks to mirror an actual production environment as closely as possible and may connect to other production services and data, such as databases. For example, servers will be run on remote machines, rather than locally (as on a developer's workstation during dev, or on a single test machine during test), which tests the effects of networking on the system
+	
+### Production/Live       
+ 	Serves end-users/clients 
+
+
+## podział na moduły:
 
 PROJECT-CREATE
 category

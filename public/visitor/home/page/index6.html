@@ -47,13 +47,25 @@ http://localhost/origini-app/visitor/home/page/index.html
 <script>
 
     var rout = new Router();
+    var source = 'docs';
+    var obj = {
+        "version": "0.0.1",
+        "author": "Tom Sapletta",
+        "company": "Softreck",
+        "name": "Newsletter",
+        "tags": "Newsletter, Create, Read, Update, Delete"
+    };
+    var exe = rout[source](obj);
 
+    console.log('exe',exe);
+    console.log('rout', rout);
+
+/*
     var apiunit = new Apiunit();
 
-    // apiunit.target("#home-plugins");
+    apiunit.target("#home-plugins");
 
-    apiunit.router(rout);
-
+    apiunit.router(new Router());
     apiunit.json({
         "docs": {
             "version": "0.0.1",
@@ -87,7 +99,35 @@ http://localhost/origini-app/visitor/home/page/index.html
             "/visitor/newsletter/js/foot.js"
         ]
     });
+    // apiunit.url([
+    //     "/visitor/newsletter/config/create.json"
+        // ,"/visitor/newsletter/config/delete.json"
+        // ,"/visitor/newsletter/config/update.json"
+        // ,"/visitor/newsletter/config/status.json"
+    // ]);
 
+
+    // apiunit.url([
+    //     "/visitor/newsletter/config/update.json"
+    // ]);
+    //apiunit.url("/visitor/newsletter/config/create.json");
+
+    // loadPlugin({
+    //     "home-plugins": {
+    //         "html": [
+    //             "/visitor/home/plugin/messages.html",
+    //             "/visitor/newsletter/plugin/create.html",
+    //             "/visitor/newsletter/plugin/delete.html"
+    //         ],
+    //     }
+    // });
+    // loadPlugin({
+    //     "head": {
+    //         "style": "/visitor/newsletter/css/black.css",
+    //         "script": "/visitor/newsletter/js/foot.js"
+    //     }
+    // });
+*/
 </script>
 
 
