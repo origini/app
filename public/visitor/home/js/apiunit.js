@@ -135,25 +135,17 @@ var Apiunit = function () {
 
                 for (var i in obj[source]) {
 
-                    var url = obj[source][i];
+                    var data = obj[source][i];
 
-                    //console.log(target, source, url);
-
-                    var exist_in_apiunit = apiunit.included.indexOf(url) !== -1;
-
-                    if (!exist_in_apiunit) {
+                    //console.log(target, source, data);
 
                         try {
-                            exe = router[source](url);
+                            exe = router[source](data);
                             console.log('router[source] =', exe);
                         } catch (err) {
                             console.error('!router[source]', err, obj);
                         }
 
-                        apiunit.included.push(url);
-                    } else {
-                        console.error('!exist: ', url);
-                    }
 
                 }
                 //console.log(target, type, value);
@@ -168,7 +160,7 @@ var Apiunit = function () {
         //return output;
 
         // for(i = 0; i < obj.length; i++) {
-        //out += '<a href="' + arr[i].url + '">' + arr[i].display + '</a><br>';
+        //out += '<a href="' + arr[i].data + '">' + arr[i].display + '</a><br>';
         //var router = new IncludeToId('home-plugins');
         // console.log(obj[i]);
         // }

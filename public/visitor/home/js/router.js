@@ -100,11 +100,17 @@ var Router = function (target, error, success) {
         }
 
         for (var i in files) {
-            addScriptToHead(files[i], target, this.error, this.success);
+
+            var exist_in_apiunit = apiunit.included.indexOf(files[i]) !== -1;
+
+            if (!exist_in_apiunit) {
+                addScriptToHead(files[i], target, this.error, this.success);
+            } else {
+                console.error('!exist: ', files[i]);
+            }
         }
 
-        this.included.push(file);
-
+        this.included.push(files[i]);
 
         return this;
     };
