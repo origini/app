@@ -22,9 +22,10 @@
       "/visitor/home/js/formToObject.min.js",
       "/visitor/home/js/message.js",
       "/visitor/home/js/rest.js",
-      "/visitor/home/js/rest-module.js"
+      "/visitor/home/js/form-event.js",
+      "/visitor/home/js/rest-url.js"
     ],
-    "script-onload": [
+    "script-delay": [
       "/visitor/newsletter/js/foot.js"
     ]
   }

@@ -116,3 +116,5 @@ Would skip repository visitor/newsletter/slim/vendor/psr/http-message
 Would skip repository visitor/newsletter/slim/vendor/slim/slim
 visitor/newsletter/slim/vendor/autoload.php
 visitor/newsletter/slim/vendor/composer
+
+node_modules/

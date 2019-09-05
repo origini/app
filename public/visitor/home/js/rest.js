@@ -36,13 +36,13 @@ var Response = function (xhr, error, success) {
 }
 
 
-function Rest(url, selector, error, success) {
+var Rest = function (url, separator, error, success) {
 
     this.url = url;
-    this.selector = '/';
-    if (selector !== undefined) {
+    this.separator = '/';
+    if (separator !== undefined) {
         // this.selector = selector + 'id=';
-        this.selector = selector;
+        this.separator = separator;
     }
     // this.error = {};
     // this.success = {};
@@ -83,7 +83,7 @@ function Rest(url, selector, error, success) {
 
     this.get = function (id) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', this.url + this.selector + id, true);
+        xhr.open('GET', this.url + this.separator + id, true);
         xhr.onload = function () {
             Response(xhr, error, success);
         }
@@ -108,7 +108,7 @@ function Rest(url, selector, error, success) {
         var json = JSON.stringify(data);
 
         var xhr = new XMLHttpRequest();
-        xhr.open("PUT", this.url + this.selector + id, true);
+        xhr.open("PUT", this.url + this.separator + id, true);
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.onload = function () {
             Response(xhr, error, success);
@@ -119,7 +119,7 @@ function Rest(url, selector, error, success) {
     this.delete = function (id) {
         var xhr = new XMLHttpRequest();
 
-        xhr.open("DELETE", this.url + this.selector + id, true);
+        xhr.open("DELETE", this.url + this.separator + id, true);
         xhr.onload = function () {
             Response(xhr, error, success);
         }

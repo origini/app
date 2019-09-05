@@ -10,7 +10,16 @@
     "origini"
   ],
   "license": "MIT",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "npm install express",
+    "start": "node app.js"
+  },
   "dependencies": {
-    "express": "*"
+    "express": "*",
+    "fs": "*",
+    "qs": "^6.5.2",
+    "readline": "*"
   }
 }

@@ -7,6 +7,8 @@ https://github.com/origini/app
 
 git clone https://github.com/origini/app.git
 
+cd F:\xampp73\htdocs\origini-app\
+docker-compose up -d
 
 ## environment
 bash scripts
@@ -17,6 +19,23 @@ python
 express framework 
 migration
 
+
+### Install the dependencies
+
+    npm install
+
+### Run the dev server with reload at localhost:8080
+
+    npm run dev
+
+### Build the app for production
+
+    npm run build
+    
+    
+## Start
+    node app.js
+    
 ## TODO
 
 podział na moduły:

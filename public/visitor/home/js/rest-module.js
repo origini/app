@@ -7,7 +7,7 @@ function restModule(modulename, classname_prefix, domain, restfile, error, succe
     }
 
     if (domain === undefined || domain.length < 1) {
-        domain = '/origini-app/visitor/';
+        domain = '/visitor/';
     }
 
     if (restfile === undefined || restfile.length < 1) {

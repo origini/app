@@ -153,6 +153,14 @@ var Apiunit = function () {
                                 console.error('!exist: ', url);
                             }
 
+                        } else if (source === 'script-delay') {
+                            if (!exist_in_apiunit) {
+                                loadToHeader.script_delay(url);
+                                apiunit.included.push(url);
+                            } else {
+                                console.error('!exist: ', url);
+                            }
+
                         } else if (source === 'style') {
                             if (!exist_in_apiunit) {
                                 loadToHeader.style(url);
@@ -178,6 +186,7 @@ var Apiunit = function () {
             }
             // console.log(target, type, value);
         }
+        console.log('apiunit.included', apiunit.included);
 
         //return output;
 
@@ -219,15 +228,11 @@ function addScriptToHead(src) {
 
 
 function addScriptToHeadDelayed(src) {
-    addScriptToHead(src);
-
-    // var delay = 100;
-    // document.addEventListener("DOMContentLoaded", function () {
-    //     setTimeout(function () {
-    //             addScriptToHead(src)
-    //         },
-    //         delay)
-    // });
+    var delay = 100;
+    setTimeout(function () {
+            addScriptToHead(src)
+        },
+        delay);
 }
 
 
@@ -391,6 +396,9 @@ var IncludeToId = function (separator, error, success) {
         };
         //this.included.push(file);
         // return this;
+    };
+    this.script_delay = function (file) {
+        addScriptToHeadDelayed(file);
     };
     this.styleString = function (file) {
         // addStyleStringToHeadDelayed(file);

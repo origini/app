@@ -16,6 +16,7 @@ var Message = function (selector) {
 
     this.add = function (message) {
         console.log(message);
+        var classname = null;
 
         if (typeof classname !== 'string') {
             classname = 'home-messages';
