@@ -1,7 +1,7 @@
 function includeUrl(file, separator, error, success) {
     var xhttp;
 
-    var el = new Element(separator);
+    var el = new E(separator);
     var elmnt = el.first();
 
     if (typeof success !== 'function') {

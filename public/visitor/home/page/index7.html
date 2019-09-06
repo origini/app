@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <!--    <script src="/visitor/home/js/include-html.js"></script>-->
+    <script src="/visitor/home/js/include-script.js"></script>
+    <!--    <script src="/visitor/home/js/e.js"></script>-->
+    <!--    <script src="/visitor/home/js/message.js"></script>-->
+
+    <!--    <script src="/visitor/home/js/include-url.js"></script>-->
+
+    <script src="/visitor/home/js/formToObject.min.js"></script>
+    <script src="/visitor/home/js/response.js"></script>
+    <script src="/visitor/home/js/rest.js"></script>
+    <!--    <script src="/visitor/home/js/rest-url.js"></script>-->
+    <!--    <script src="/visitor/home/js/rest-module.js"></script>-->
+    <!--    <script src="/visitor/home/js/rest-submit.js"></script>-->
+
+    <!--    <script src="/visitor/home/js/rest-form.js"></script>-->
+    <script src="/visitor/home/js/include.js"></script>
+    <script src="/visitor/home/js/listener.js"></script>
+    <script src="/visitor/home/js/router.js"></script>
+    <script src="/visitor/home/js/apiunit.js"></script>
+
+    <script>
+        // REDIRECTION from http -> https
+        var dev = window.location.hostname === 'localhost';
+        var https = window.location.protocol === 'https:';
+        console.log(dev, https, window.location.protocol, window.location);
+        if (!dev && !https) {
+            window.location.href = window.location.href.replace('http', 'https');
+        }
+    </script>
+
+</head>
+<body>
+
+http://localhost/origini-app/visitor/home/page/index.html
+<!--<div class="home-messages">-->
+
+<!--</div>-->
+
+
+<div id="home-plugins">
+    ...
+
+</div>
+
+
+<script>
+
+    var success = function (data) {
+        console.log('loaded', data);
+    };
+
+    includeScript("/visitor/home/js/e.js", document.body, success);
+    includeScript("/visitor/home/js/formToObject.min.js", document.body, success);
+    includeScript("/visitor/home/js/response.js", document.body, success);
+    includeScript("/visitor/home/js/rest.js", document.body, success);
+    includeScript("/visitor/home/js/include.js", document.body, success);
+    includeScript("/visitor/home/js/listener.js", document.body, success);
+    includeScript("/visitor/home/js/router.js", document.body, success);
+    includeScript("/visitor/home/js/apiunit.js", document.body, success);
+    includeScript("/visitor/home/js/index.js", document.body, success);
+
+    // loadJS('yourcode.js', yourCodeToBeCalled, document.body);
+
+
+</script>
+
+
+</body>
+</html>

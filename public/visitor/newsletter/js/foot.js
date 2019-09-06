@@ -1,4 +1,4 @@
-restUrl('/visitor/newsletter/php/index.php', 'newsletter',   '', function (data) {
+restUrl('/visitor/newsletter/php/index.php', 'newsletter',    function (data) {
     console.error('restUrl', data);
     AddMessage(data.message.error);
 }, function (data) {

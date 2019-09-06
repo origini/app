@@ -4,42 +4,11 @@
 // Get all users
 
 
-function trim(str) {
-    return str.replace(/^\s+|\s+$/g, '');
-}
-
-
-function isJson(str) {
-    try {
-        JSON.parse(str);
-    } catch (e) {
-        return false;
-    }
-    return true;
-}
-
-var Response = function (xhr, error, success) {
-    if (!isJson(xhr.responseText)) {
-        console.error('Response give not JSON Data');
-        // alert('Response give not JSON Data');
-        console.log(xhr.responseText);
-        return false;
-    }
-    var data = JSON.parse(xhr.responseText);
-    if (xhr.readyState == 4 && xhr.status == "200") {
-        // console.table(data);
-        success(data, xhr);
-    } else {
-        // console.error(data);
-        error(data, xhr);
-    }
-}
-
-
-var Rest = function (url, separator, error, success) {
+var Rest = function (url, separator, response, error, success) {
 
     this.url = url;
     this.separator = '/';
+    this.response = response;
     if (separator !== undefined) {
         // this.selector = selector + 'id=';
         this.separator = separator;
@@ -49,33 +18,48 @@ var Rest = function (url, separator, error, success) {
     this.error = error;
     this.success = success;
 
+    var rest = this;
+
+    this.setUrl = function (url) {
+        rest.url = url;
+    };
+
+    this.setSeparator = function (separator) {
+        rest.separator = separator;
+    };
+
+
+    this.setResponse = function (response) {
+        rest.response = response;
+    };
+
+
     this.byMethod = function (method, data) {
 
 
         if (method === 'GET') {
             var id = data.id;
-            this.get(id);
+            rest.get(id);
         }
         if (method === 'POST') {
-            this.post(data);
+            rest.post(data);
         }
         if (method === 'PUT') {
             var id = data.id;
-            this.put(id, data);
+            rest.put(id, data);
         }
         if (method === 'DELETE') {
             var id = data.id;
-            this.delete(id);
+            rest.delete(id);
         }
 
     }
 
     this.all = function () {
         var xhr = new XMLHttpRequest();
-
-        xhr.open('GET', this.url, true);
+        xhr.open('GET', rest.url, true);
         xhr.onload = function () {
-            Response(xhr, error, success);
+            rest.response(xhr, error, success);
         }
         xhr.send(null);
     }
@@ -83,47 +67,48 @@ var Rest = function (url, separator, error, success) {
 
     this.get = function (id) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', this.url + this.separator + id, true);
+        xhr.open('GET', rest.url + rest.separator + id, true);
         xhr.onload = function () {
-            Response(xhr, error, success);
+            rest.response(xhr, error, success);
         }
         xhr.send(null);
     }
 
     // create
     this.post = function (data) {
-        var json = JSON.stringify(data);
-
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", this.url, true);
+        xhr.open("POST", rest.url, true);
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.onload = function () {
-            Response(xhr, error, success);
+            rest.response(xhr, error, success);
         }
-        xhr.send(json);
+        xhr.send(rest.getJson(data));
     }
 
     // update
     this.put = function (id, data) {
-        var json = JSON.stringify(data);
-
         var xhr = new XMLHttpRequest();
-        xhr.open("PUT", this.url + this.separator + id, true);
+        xhr.open("PUT", rest.url + rest.separator + id, true);
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.onload = function () {
-            Response(xhr, error, success);
+            rest.response(xhr, error, success);
         }
-        xhr.send(json);
+        xhr.send(rest.getJson(data));
     }
 
     this.delete = function (id) {
         var xhr = new XMLHttpRequest();
 
-        xhr.open("DELETE", this.url + this.separator + id, true);
+        xhr.open("DELETE", rest.url + rest.separator + id, true);
         xhr.onload = function () {
-            Response(xhr, error, success);
+            rest.response(xhr, error, success);
         }
         xhr.send(null);
+    }
+
+    this.getJson = function(data){
+        var json = JSON.stringify(data);
+        return json;
     }
 
     return this;

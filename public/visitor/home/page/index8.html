@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <script src="/visitor/home/js/include-script.js"></script>
+
+    <script>
+        // REDIRECTION from http -> https
+        // var dev = window.location.hostname === 'localhost';
+        // var https = window.location.protocol === 'https:';
+        // console.log(dev, https, window.location.protocol, window.location);
+        // if (!dev && !https) {
+        //     window.location.href = window.location.href.replace('http', 'https');
+        // }
+    </script>
+
+
+
+    <script>
+
+        var success = function (data) {
+            console.log('loaded', data);
+        };
+
+        // var target = document.body;
+        var target = document.getElementsByTagName('head')[0];
+
+        includeScript("/visitor/home/js/e.js", target, success);
+        includeScript("/visitor/home/js/formToObject.min.js", target, success);
+        includeScript("/visitor/home/js/response.js", target, success);
+        includeScript("/visitor/home/js/rest.js", target, success);
+        includeScript("/visitor/home/js/include.js", target, success);
+        includeScript("/visitor/home/js/listener.js", target, success);
+        includeScript("/visitor/home/js/router.js", target, success);
+        includeScript("/visitor/home/js/apiunit.js", target, success);
+        includeScript("/visitor/home/js/index.js", target, success);
+
+    </script>
+
+</head>
+<body>
+
+http://localhost/origini-app/visitor/home/page/index.html
+<!--<div class="home-messages">-->
+
+<!--</div>-->
+
+
+<div id="home-plugins">
+    ...
+
+</div>
+
+
+
+</body>
+</html>

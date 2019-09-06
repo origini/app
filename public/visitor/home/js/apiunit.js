@@ -3,6 +3,9 @@ var Apiunit = function () {
     // this.router = router;
     this.cfg = {};
     this.cfg.router = {};
+    this.cfg.event = {};
+    this.cfg.listener = {};
+    this.cfg.env = {};
 
     // this.config = config;
 
@@ -17,6 +20,87 @@ var Apiunit = function () {
     };
 
     var apiunit = this;
+
+
+    this.listener = function (listener) {
+
+        apiunit.cfg.listener = listener;
+
+        return this;
+    };
+
+    this.env = function (event) {
+        apiunit.cfg.env = event;
+        apiunit.loadPlugin(obj, error, success);
+
+        return this;
+    };
+
+    this.event = function (event) {
+        apiunit.cfg.event = event;
+        apiunit.loadPlugin(obj, error, success);
+
+        return this;
+    };
+
+    this.loadEvent = function (obj, error, success) {
+
+        if (typeof success !== 'function') {
+            success = this.success;
+        }
+        if (typeof error !== 'function') {
+            error = this.error;
+        }
+
+        obj = this.fromJsonStringToObj(obj);
+
+        var listener = this.cfg.listener;
+        if (typeof obj !== 'object') {
+            console.error('! apiunit. listener', listener);
+        }
+        var exe = {};
+
+        if (typeof obj === 'object') {
+            //console.log('obj:', obj);
+
+            for (var source in obj) {
+
+                var data = obj[source];
+
+                console.log('source data', source, data);
+
+                try {
+                    exe = listener[source](data);
+                    console.log('apiunit.router[source] =', source, exe);
+                } catch (err) {
+                    console.error('! apiunit.router[source]', source, err, obj);
+                }
+                // }
+                //console.log(target, type, value);
+            }
+        } else {
+            console.error('apiunit obj: is not object:', obj);
+        }
+        // console.log(target, type, value);
+        // }
+        console.log('apiunit.included:', apiunit.included);
+
+        return this;
+    };
+
+
+    this.router = function (router, error, success) {
+        // if (typeof success !== 'function') {
+        //     success = this.success;
+        // }
+        // if (typeof error !== 'function') {
+        //     error = this.error;
+        // }
+        apiunit.cfg.router = router;
+
+        return this;
+    };
+
 
     this.url = function (path, error, success) {
         if (typeof success !== 'function') {
@@ -45,27 +129,25 @@ var Apiunit = function () {
         return this;
     };
 
-    this.router = function (router, error, success) {
+    this.json = function (obj, delay, error, success) {
         // if (typeof success !== 'function') {
         //     success = this.success;
         // }
         // if (typeof error !== 'function') {
         //     error = this.error;
         // }
-        this.cfg.router = router;
+        // console.log(typeof delay);
+        // return this;
 
-        return this;
-    };
-
-
-    this.json = function (obj, error, success) {
-        // if (typeof success !== 'function') {
-        //     success = this.success;
-        // }
-        // if (typeof error !== 'function') {
-        //     error = this.error;
-        // }
-        apiunit.loadPlugin(obj, error, success);
+        if (typeof delay === 'number') {
+            // var delay = 100;
+            setTimeout(function () {
+                    apiunit.loadPlugin(obj, error, success);
+                },
+                delay);
+        } else {
+            apiunit.loadPlugin(obj, error, success);
+        }
 
         return this;
     };
@@ -128,26 +210,24 @@ var Apiunit = function () {
                 // console.log(typeof obj[source]);
                 // console.log(obj[source]);
 
-                if (typeof obj[source] !== 'object') {
-                    obj[source] = [obj[source]];
+                // if (typeof obj[source] !== 'object') {
+                //     obj[source] = [obj[source]];
+                // }
+
+
+                // for (var i in obj[source]) {
+
+                var data = obj[source];
+
+                console.log('source data', source, data);
+
+                try {
+                    exe = router[source](data);
+                    console.log('apiunit.router[source] =', source, exe);
+                } catch (err) {
+                    console.error('! apiunit.router[source]', source, err, obj);
                 }
-
-
-                for (var i in obj[source]) {
-
-                    var data = obj[source][i];
-
-                    //console.log(target, source, data);
-
-                        try {
-                            exe = router[source](data);
-                            console.log('router[source] =', exe);
-                        } catch (err) {
-                            console.error('!router[source]', err, obj);
-                        }
-
-
-                }
+                // }
                 //console.log(target, type, value);
             }
         } else {
@@ -186,108 +266,6 @@ var Apiunit = function () {
 
 };
 
-
-function addScriptToHead(src) {
-    var head = document.getElementsByTagName('head')[0];
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = src;
-    head.appendChild(script);
-}
-
-
-function addScriptToHeadDelayed(src) {
-    var delay = 100;
-    setTimeout(function () {
-            addScriptToHead(src)
-        },
-        delay);
-}
-
-
-function addStyleStringToHead(string) {
-    var head = document.getElementsByTagName('head')[0];
-    var linkElement = this.document.createElement('link');
-    linkElement.setAttribute('rel', 'stylesheet');
-    linkElement.setAttribute('type', 'text/css');
-    linkElement.setAttribute('href', 'data:text/css;charset=UTF-8,' + encodeURIComponent(string));
-    head.appendChild(linkElement);
-}
-
-//
-// function addStyleStringToHeadDelayed(string) {
-//     var delay = 50;
-//     document.addEventListener("DOMContentLoaded", function () {
-//         setTimeout(function () {
-//                 addStyleStringToHead(string)
-//             },
-//             delay)
-//     });
-// }
-
-
-function addStyleToHead(src) {
-    var head = document.getElementsByTagName('head')[0];
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = src;
-    head.appendChild(link);
-
-    // var linkElement = this.document.createElement('link');
-    // linkElement.setAttribute('rel', 'stylesheet');
-    // linkElement.setAttribute('type', 'text/css');
-    // linkElement.setAttribute('href', src);
-    // head.appendChild(linkElement);
-}
-
-function addStyleToHeadDelayed(src) {
-    addStyleToHead(src);
-    //
-    // var delay = 1;
-    // setTimeout(function () {
-    //         addStyleToHead(src);
-    //     },
-    //     delay);
-}
-
-// <a href="/path/to/image.jpg" download="FileName.jpg">
-function includeImgA(url, fileName) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
-    xhr.responseType = "blob";
-    xhr.onload = function () {
-        var urlCreator = window.URL || window.webkitURL;
-        var imageUrl = urlCreator.createObjectURL(this.response);
-        var tag = document.createElement('a');
-        tag.href = imageUrl;
-        tag.download = fileName;
-        document.body.appendChild(tag);
-        tag.click();
-        document.body.removeChild(tag);
-    }
-    xhr.send();
-}
-
-function includeImg(url, separator) {
-    console.log('apiunit / image / ' + url);
-    var el = new Element(separator);
-    var elmnt = el.first();
-
-    let img = new Image;
-    img.onload = function () {
-        console.log("Including IMG:", url);
-        elmnt.appendChild(img);
-    };
-    img.src = url;  // erst nach dem Event Listener!
-
-    // var image = document.images[0];
-    // var downloadingImage = new Image();
-    // downloadingImage.onload = function () {
-    //     image.src = this.src;
-    // };
-    // downloadingImage.src = url;
-}
 
 //var loadToHeader = new IncludeToId('home-plugins');
 /*

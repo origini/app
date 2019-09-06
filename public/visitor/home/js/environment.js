@@ -1,16 +1,8 @@
-/**
- * @param include
- * @param error
- * @param success
- * @constructor
- */
-var Router = function (include, error, success) {
-
+var Router = function (target, error, success) {
+    //
     this.cfg = {};
-    this.cfg.target = 'body';
-    this.include = include;
+    this.cfg.target = target;
     this.included = [];
-
 
     if (typeof error !== 'function') {
         error = function (data) {
@@ -68,7 +60,7 @@ var Router = function (include, error, success) {
 
 
             if (!exist_in_apiunit) {
-                router.include.includeImg(files[i], router.cfg.target, router.error, router.success);
+                includeImg(files[i], router.cfg.target, this.error, this.success);
                 router.included.push(files[i]);
 
             } else {
@@ -83,8 +75,8 @@ var Router = function (include, error, success) {
     this.domain = function (domain) {
         if (typeof domain !== 'object') {
             router.cfg.domain = domain;
-            // router.included.push(domain);
-        } else {
+            router.included.push(file);
+        }{
             console.error('apiunit.domain: is an object:', domain);
         }
 
@@ -107,29 +99,22 @@ var Router = function (include, error, success) {
     //     console.log('Dokument geladen');
     // }
     //
-
     this.target = function (target) {
         router.cfg.target = target;
 
         return this;
     };
 
-    this.html = function (files) {
+    this.html = function (files, target) {
 
         if (typeof files !== 'object') {
             files = [files];
         }
-        // console.log('files ', files);
-
-        if (typeof router.cfg.target !== 'string') {
-            console.error('!router html router.cfg.target ', router.cfg.target);
-            return this;
-        }
-        // var target = router.cfg.target
 
         for (var i in files) {
 
             console.log('files[i] ', files[i]);
+
 
             var exist_in_apiunit = router.included.indexOf(files[i]) !== -1;
 
@@ -137,7 +122,7 @@ var Router = function (include, error, success) {
 
 
             if (!exist_in_apiunit) {
-                router.include.includeUrl(files[i], router.cfg.target, router.error, router.success);
+                includeUrl(files[i], router.cfg.target, this.error, this.success);
                 router.included.push(files[i]);
             } else {
                 console.error('!exist: ', files[i]);
@@ -147,7 +132,7 @@ var Router = function (include, error, success) {
         return this;
     };
 
-    this.script = function (files) {
+    this.script = function (files, target) {
         if (typeof files !== 'object') {
             files = [files];
         }
@@ -157,8 +142,7 @@ var Router = function (include, error, success) {
             var exist_in_apiunit = router.included.indexOf(files[i]) !== -1;
 
             if (!exist_in_apiunit) {
-                // router.include.addScriptToHead(files[i], router.cfg.target, router.error, router.success);
-                router.include.addScriptToHead(files[i]);
+                addScriptToHead(files[i], target, this.error, this.success);
                 router.included.push(files[i]);
             } else {
                 console.error('!exist: ', files[i]);
@@ -171,17 +155,17 @@ var Router = function (include, error, success) {
     this.script_onload = function (files) {
         // addScriptToHeadDelayed(file);
         window.onload = function () {
-            router.include.addScriptToHead(file);
+            addScriptToHead(file);
         };
         //router.included.push(file);
         // return this;
     };
     this.script_delay = function (file) {
-        router.include.addScriptToHeadDelayed(file);
+        addScriptToHeadDelayed(file);
     };
 
 
-    this.style = function (files) {
+    this.style = function (files, target) {
         if (typeof files !== 'object') {
             files = [files];
         }
@@ -191,8 +175,7 @@ var Router = function (include, error, success) {
             var exist_in_apiunit = router.included.indexOf(files[i]) !== -1;
 
             if (!exist_in_apiunit) {
-                //router.include.addStyleToHead(files[i], router.cfg.target, this.error, this.success);
-                router.include.addStyleToHead(files[i]);
+                addStyleToHead(files[i], target, this.error, this.success);
                 router.included.push(files[i]);
             } else {
                 console.error('!exist: ', files[i]);
@@ -201,19 +184,17 @@ var Router = function (include, error, success) {
 
         return this;
     };
-
     this.style_string = function (file) {
         // addStyleStringToHeadDelayed(file);
-        router.include.addStyleStringToHead(file);
+        addStyleStringToHead(file);
         //router.included.push(file);
 
         // return this;
     };
-
     this.style_onload = function (file) {
         window.onload = function () {
             console.log('style_onload', file);
-            router.include.addStyleToHead(file);
+            addStyleToHead(file);
         }
         //router.included.push(file);
         // return this;
