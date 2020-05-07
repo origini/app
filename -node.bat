@@ -3,4 +3,4 @@
 npm install
 npm update
 npm run
-start firefox "http://localhost:89"
+start firefox "http://localhost:3000"

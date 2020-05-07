@@ -13,10 +13,10 @@
     ],
     "style": "/visitor/newsletter/css/black.css",
     "script": [
-      "/visitor/home/js/formToObject.min.js",
-      "/visitor/home/js/message.js",
-      "/visitor/home/js/rest.js",
-      "/visitor/home/js/rest-module.js"
+      "//js.jloads.com/formToObject.min.js",
+      "//js.jloads.com/message.js",
+      "//js.jloads.com/rest.js",
+      "//js.jloads.com/rest-module.js"
     ],
     "script-onload": [
       "/visitor/newsletter/js/foot.js"

@@ -21,11 +21,11 @@
     "/visitor/home/css/mobile.css"
   ],
   "script": [
-    "/visitor/home/js/formToObject.min.js",
-    "/visitor/home/js/message.js",
-    "/visitor/home/js/rest.js",
-    "/visitor/home/js/form-event.js",
-    "/visitor/home/js/rest-url.js"
+    "//js.jloads.com/formToObject.min.js",
+    "//js.jloads.com/message.js",
+    "//js.jloads.com/rest.js",
+    "//js.jloads.com/form-event.js",
+    "//js.jloads.com/rest-url.js"
   ],
   "script-delay": [
     "/visitor/newsletter/js/foot.js"
