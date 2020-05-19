@@ -25,12 +25,12 @@
         var error = function (data) {
             console.error('!loaded', data);
         };
-        var unitapi = new Load(document.body, success, error);
+        var jloads = new Load(document.body, success, error);
 
     </script>
 
     <script>
-        unitapi.cacheOff().js([
+        jloads.cacheOff().js([
             "//code.jquery.com/jquery-git.min.js",
             "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
             "//js.jloads.com/e.js",
