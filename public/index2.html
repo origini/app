@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js.apiunit.com</title>
+
+    <script src="load.js?5"></script>
+
+    <script>
+        // time();
+        // REDIRECTION from http -> https
+        // var dev = window.location.hostname === 'localhost';
+        // var https = window.location.protocol === 'https:';
+        // console.log(dev, https, window.location.protocol, window.location);
+        // if (!dev && !https) {
+        //     window.location.href = window.location.href.replace('http', 'https');
+        // }
+    </script>
+
+
+</head>
+<body>
+
+http://localhost/origini-app/visitor/home/page/index.html
+<!--<div class="home-messages">-->
+
+<!--</div>-->
+
+
+<div id="home-plugins">
+    ...
+
+</div>
+
+
+<script>
+
+    // TODO: move all scripts to js.apiunit.com
+
+    var success = function (data) {
+        console.log('loaded', data);
+    };
+    var error = function (data) {
+        console.error('!loaded', data);
+    };
+
+    // var target = document.body;
+    var target = document.getElementsByTagName('head')[0];
+
+    // var Load = new load(target, success);
+    // var Load = new load(target, success);
+    var loader = new Load(document.body, success, error);
+    // console.log(
+    //     'loada',loada
+    // );
+
+    // loader.cache(1).cascade().js([
+    loader
+        .cacheOff()
+        .env({
+            "local":{
+                "domain": "//localhost:63342/"
+            },
+            "production":{
+                "domain": "//js.apiunit.com/"
+            }
+        })
+        // .domain('//js.apiunit.com/')
+        .js([
+            "e.js",
+            "formToObject.min.js",
+            "response.js",
+            "rest.js",
+            "include.js",
+            "listener.js",
+            "router.js",
+            "apiunit.js",
+            "message.js",
+            "rest-form.js"
+        ]);
+
+    loader.style([
+        "//app.apiunit.com/visitor/newsletter/css/black.css",
+        "//app.apiunit.com/visitor/home/css/mobile.css"
+    ]);
+
+    loader.delay(10).target("#home-plugins").html([
+        "//app.apiunit.com/visitor/home/plugin/messages.html",
+        "//app.apiunit.com/visitor/newsletter/plugin/create.html"
+    ]);
+
+
+    loader.delay(70).target("#home-plugins").image([
+        "//app.apiunit.com/visitor/home/img/apiunit.png"
+    ]);
+
+
+    setTimeout(function () {
+            var form = new RestForm('form', error, success);
+            form.submit({
+                "target": "form",
+                "url": "//app.apiunit.com/visitor/newsletter/php/index.php",
+                "method": "get"
+            });
+        },
+        400
+    );
+
+    // console.log(
+    //     load(target, success, error)
+    // );
+    //
+    // loader.delay(100).cache(1).js([
+    //     "//js.apiunit.com/index.js",
+    //     "//js.apiunit.com/index1.js"
+    // ]);
+
+    //
+    // load(target, success, error).style([
+    //     "/visitor/newsletter/css/black.css",
+    //     "/visitor/home/css/mobile.css"
+    // ]);
+    //
+    //
+    // var target = document.body;
+    //
+    // load(target, success, error).html([
+    //     "/visitor/home/plugin/messages.html",
+    //     "/visitor/newsletter/plugin/create.html"
+    // ]);
+    //
+    //
+    // load(target, success, error).image([
+    //     "/visitor/home/img/apiunit.png"
+    // ]);
+
+
+    // event('submit');
+
+    // TODO: more possbilites, recognise extension
+    // function myPlugin() {
+    //
+    //     var opts = {
+    //         verbose: false
+    //     };                          ///< The options required to run this function
+    //     var self = this;            ///< An alias to 'this' in case we're in jQuery                         ///< Constants required for this function to work
+    //
+    //     this.getOptions = function() {
+    //         return opts;
+    //     };
+    //
+    //     this.setOptions = function(options) {
+    //         for (var x in options) {
+    //             opts[x] = options[x];
+    //         }
+    //     };
+    //
+    //     /**
+    //      * @brief Load the required files for this plugin
+    //      * @param {Function} callback A callback function to run when all files have been loaded
+    //      */
+    //     this.loadRequiredFiles = function (callback) {
+    //         var scripts = ['xx.js', 'yy.js'];
+    //         var styles = ['zz.css'];
+    //         var filesloaded = 0;
+    //         var filestoload = scripts.length + styles.length;
+    //         for (var i = 0; i < scripts.length; i++) {
+    //             log('Loading script ' + scripts[i]);
+    //             var script = document.createElement('script');
+    //             script.type = 'text/javascript';
+    //             script.src = scripts[i];
+    //             script.onload = function () {
+    //                 log('Loaded script');
+    //                 log(this);
+    //                 filesloaded++;
+    //                 finishLoad();
+    //             };
+    //             document.head.appendChild(script);
+    //         }
+    //         for (var i = 0; i < styles.length; i++) {
+    //             log('Loading style ' + styles[i]);
+    //             var style = document.createElement('link');
+    //             style.rel = 'stylesheet';
+    //             style.href = styles[i];
+    //             style.type = 'text/css';
+    //             style.onload = function () {
+    //                 log('Loaded style');
+    //                 log(this);
+    //                 filesloaded++;
+    //                 finishLoad();
+    //             };
+    //             document.head.appendChild(style);
+    //         }
+    //         function finishLoad() {
+    //             if (filesloaded === filestoload) {
+    //                 callback();
+    //             }
+    //         }
+    //     };
+    //
+    //     /**
+    //      * @brief Enable user-controlled logging within this function
+    //      * @param {String} msg The message to log
+    //      * @param {Boolean} force True to log message even if user has set logging to false
+    //      */
+    //     function log(msg, force) {
+    //         if (opts.verbose || force) {
+    //             console.log(msg);
+    //         }
+    //     }
+    //
+    //     /**
+    //      * @brief Initialise this function
+    //      */
+    //     this.init = function() {
+    //         self.loadRequiredFiles(self.afterLoadRequiredFiles);
+    //     };
+    //
+    //     this.afterLoadRequiredFiles = function () {
+    //         // Do stuff
+    //     };
+    //
+    // }
+
+</script>
+
+</body>
+</html>

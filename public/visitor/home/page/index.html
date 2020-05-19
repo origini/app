@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Home</title>
 
-    <script src="//js.jloads.com/load.js"></script>
+    <script src="//load.jloads.com/load.js"></script>
 
     <script>
         // REDIRECTION from http -> https
@@ -18,54 +18,60 @@
 
 
     <script>
-
-        // TODO: move all scripts to js.apiunit.com
-
+        // Configuration
         var success = function (data) {
             console.log('loaded', data);
         };
         var error = function (data) {
             console.error('!loaded', data);
         };
+        var unitapi = new Load(document.body, success, error);
 
-        // var target = document.body;
-        var target = document.getElementsByTagName('head')[0];
+    </script>
 
-        // var Load = new load(target, success);
-        load(target, success, error).js([
+    <script>
+        unitapi.cacheOff().js([
+            "//code.jquery.com/jquery-git.min.js",
+            "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
             "//js.jloads.com/e.js",
             "//js.jloads.com/formToObject.min.js",
             "//js.jloads.com/response.js",
-            "//js.jloads.com/rest.js",
-            "//js.jloads.com/include.js",
+            "//js.jloads.com/rest/rest.js",
+            "//js.jloads.com/include/include.js",
             "//js.jloads.com/listener.js",
             "//js.jloads.com/router.js",
             "//js.jloads.com/apiunit.js",
-            "//js.jloads.com/index.js",
-            "//js.jloads.com/index1.js"
+            "//js.jloads.com/index.js"
+            // "//js.jloads.com/index1.js"
         ]);
-        //
-        // load(target, success, error).style([
-        //     "/visitor/newsletter/css/black.css",
-        //     "/visitor/home/css/mobile.css"
-        // ]);
-        //
-        //
-        // var target = document.body;
-        //
-        // load(target, success, error).html([
-        //     "/visitor/home/plugin/messages.html",
-        //     "/visitor/newsletter/plugin/create.html"
-        // ]);
-        //
-        //
-        // load(target, success, error).image([
-        //     "/visitor/home/img/apiunit.png"
-        // ]);
-
-
-        // event('submit');
     </script>
+
+    <script>
+        // document.addEventListener("DOMContentLoaded", function(event) {
+        //     loadDefaultCss();
+        // });
+        //
+        // function loadDefaultCss(){
+        //     unitapi.cacheOff().css([
+        //         "//code.jquery.com/ui/1.12.1/jquery-ui.min.js",
+        //         "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css",
+        //         "css/default.css",
+        //     ]);
+        // }
+        // function loadPinkCss(){
+        //     unitapi.cacheOff().css([
+        //         "css/pink.css",
+        //     ]);
+        // }
+        // function loadBlackCss(){
+        //     unitapi.cacheOff().css([
+        //         "css/black.css",
+        //     ]);
+        // }
+
+    </script>
+
+
 
 </head>
 <body>
